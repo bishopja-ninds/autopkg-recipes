@@ -1,13 +1,12 @@
 Description: Signs the already downloaded and created VLC package.
 Identifier: com.guthub.bishopja-ninds.recipes.jamf.vlc.sign
-MinimumVersion: 2.3
 ParentRecipe: com.github.autopkg.pkg.VLC
 
 Input:
   SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer&#58; The National Institute of Neurological Disorders and Stroke &#40;UBAH757F69&#41;"
 
 Process:
-  - Processor: com.github.pkg.SharedProcessors/PkgSigner
+  - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
     Arguments:
       pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
       signing_cert: "%SIGNINGCERTIFICATE%"
