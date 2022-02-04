@@ -1,5 +1,5 @@
 Description: Signs the already downloaded and created VLC package.
-Identifier: com.guthub.bishopja-ninds.recipes.jamf.vlc.sign
+Identifier: com.github.bishopja-ninds.recipes.jamf.vlc.sign
 ParentRecipe: com.github.autopkg.pkg.VLC
 
 Input:
