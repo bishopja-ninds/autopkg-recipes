@@ -1,0 +1,12 @@
+Description: Uploads to the jss
+Identifier: com.github.bishopja-ninds.jamfupload.zoom
+ParentRecipe: com.github.bishopja-ninds.sign.zoom
+
+Input:
+  CATEGORY: Utilites
+
+Process:
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
+    Arguments:
+      pkg_category: "%CATEGORY%"
+

@@ -1,0 +1,33 @@
+Description: Unpacks and rebulids the Zoom installer to include the version number
+Identifier: com.github.bishopja-ninds.pkg.zoom
+ParentRecipe: com.github.bishopja-ninds.download.zoom
+
+Input:
+  NAME: Zoom
+  VERSIONTYPE: CFBundleVersion
+
+Process:
+  - Processor: FlatPkgUnpacker
+    Arguments:
+      destination_path: "%RECIPE_CACHE_DIR%/downoads/unpack"
+      flat_pkg-path: "%pathname%"
+
+  - Processor: FileFinder
+    Arguments:
+      pattern: "%RECIPE_CACHE_DIR%/downloads/unpack/*Zoom*.pkg"
+
+  - Processor: PkgPayloadUnpacker
+    Arguments:
+      destination_path: "%RECIPE_CACHE_DIR%/downloads/payload"
+      pkg_payload_path: "%found_filename%/payload"
+
+  - Processor: Versioner
+    Arguments:
+      input_plist_version_key: "%RECIPE_CACHE_DIR%/downloads/payload/zoom.us/Contents/Info.plist"
+      plist_version_key: "%VERSIONTYPE%"
+
+  - Processor: PathDeleter
+    Arguments:
+      path_list:
+        - "%RECIPE_CACHE_DIR%/downloads/unpack"
+        - "%RECIPE_CACHE_DIR%/downloads/payload"

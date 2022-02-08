@@ -1,0 +1,12 @@
+Description: Download Zoom Client for meetings
+Identifier: com.github.bishopj-ninds.download.zoom
+
+Input:
+  NAME: Zoom
+
+Process:
+  - Processor: URLDownloader
+    Arguments:
+      url: "https://zoom.us/client/latest/Zoom.pkg"
+
+  - Processor: EndOfCheckPhase
