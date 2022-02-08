@@ -6,6 +6,6 @@ Input:
   CATEGORY: Browsers
 
 Process:
-  - Processor: com.github.grahampugh.jamf.upload.processors/JamfPackageUploader
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
     Arguments:
       pkg_category: "%CATEGORY%"
