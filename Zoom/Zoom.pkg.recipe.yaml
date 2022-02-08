@@ -26,6 +26,11 @@ Process:
       input_plist_path: "%RECIPE_CACHE_DIR%/downloads/payload/zoom.us.app/Contents/Info.plist"
       plist_version_key: "%VERSIONTYPE%"
 
+  - Processer: PkgCopier
+    Arguments:
+      source_pkg: "%pathname%"
+      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+
   - Processor: PathDeleter
     Arguments:
       path_list:
