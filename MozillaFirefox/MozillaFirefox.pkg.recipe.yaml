@@ -3,7 +3,7 @@ Identifier: com.github.bishopja-ninds.pkg.mozillafirefox
 ParentRecipe: com.github.bishopja-ninds.download.mozillafirefox
 
 Input:
-  NAME: FirefoxMSR
+  NAME: FirefoxESR
 
 Process:
   - Processor: AppDmgVersioner
