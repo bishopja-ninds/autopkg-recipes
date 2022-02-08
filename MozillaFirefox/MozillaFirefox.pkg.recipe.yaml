@@ -1,0 +1,34 @@
+Description: Builds a package with the already downloaded file
+Identifier: com.github.bishopja-ninds.pkg.mozillafirefox
+ParentRecipe: com.github.bishopja-ninds.download.mozillafirefox
+
+Input:
+  NAME: FirefoxMSR
+
+Process:
+  - Processor: AppDmgVersioner
+    Arguments:
+      dmg_path: "%pathname%"
+
+  - Processor: PkgRootCreator
+    Arguments:
+      pkgroot: "%RECIPE_CACHE_DIR%/%NAME%"
+      pkgdirs:
+        Applications: "0775"
+
+  - Processor: Copier
+    Arguments:
+      source_path: "%pathname%/Firefox.app"
+      destination_path: "%pkgroot%/Applications/Firefox.app"
+
+  - Processor: PkgCreator
+    Arguments:
+      pkg_request:
+        pkgname: "%NAME%-%version%"
+        pkgdir: "%RECIPE_CACHE_DIR%"
+        id: org.mozilla.firefox.pkg
+        options: purge_ds_store
+        chown:
+          - path: Applications
+            user: root
+            group: admin
