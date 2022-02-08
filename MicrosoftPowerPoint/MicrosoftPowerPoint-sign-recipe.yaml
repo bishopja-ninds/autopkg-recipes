@@ -1,0 +1,12 @@
+Description: Signs the already downloaded and created Microsoft PowerPoint package.
+Identifier: com.github.bishopja-ninds.recipes.sign.MicrosoftPowerPoint
+ParentRecipe: com.github.rtrouton.pkg.microsoftpowerpoint365
+
+Input:
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer&#58; The National Institute of Neurological Disorders and Stroke &#40;UBAH757F69&#41;"
+
+Process:
+  - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+      signing_cert: "%SIGNINGCERTIFICATE%"

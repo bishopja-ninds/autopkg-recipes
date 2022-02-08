@@ -1,8 +1,7 @@
-
 Description: Downloads the latest version of Visual Studio Code and makes a pkg. Then, uploads to the Jamf Pro Server.
 Identifier: com.github.bishopja-ninds.recipes.jamf.MicrosoftOneDrive-pkg-upload
 MinimumVersion: "2.3"
-ParentRecipe: com.github.rtrouton.pkg.microsoftonedrive
+ParentRecipe: com.github.bishopja-ninds.recipes.sign.MicrosoftOneDrive
 
 Input:
   CATEGORY: Utilities

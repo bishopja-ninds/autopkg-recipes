@@ -1,8 +1,7 @@
-
 Description: Downloads the latest version of Microsoft Office Pro Business suite and makes a pkg. Then, uploads to the Jamf Pro Server.
 Identifier: com.github.bishopja-ninds.recipes.jamf.MicrosoftOffice-pkg-upload
 MinimumVersion: "2.3"
-ParentRecipe: com.github.rtrouton.pkg.MicrosoftOffice365BusinessProSuite
+ParentRecipe: com.github.bishopja-ninds.recipes.sign.MicrosoftOffice
 
 Input:
   CATEGORY: Utilities

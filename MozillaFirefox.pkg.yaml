@@ -1,0 +1,35 @@
+Description: Takes the dmg from the download recipe and builds a package.
+Identifier: com-github.bishopja-ninds.pkg.mozillafirefox
+ParentRecipe: com.github.bishopja-ninds.download.mozillafirefox
+
+Input:
+  NAME: FirefoxESR
+
+Process:
+  - Processor: AppDmgVersioner
+    Arguments:
+      dmg_path: %pathname%
+
+  - Processor: PkgRootCreator
+    Arguments:
+      pkgroot: %RECIPE_CACHE_DIR%/%NAME%
+      pkgdirs:
+        - Applications: 0775
+
+  - Processor: Copier
+    Arguments:
+      source_path: %pathname%/Firefox.app
+      destination_path: %pkgroot%/Applicaitions/Firefox.app
+
+  - Processor: PkgCreator
+    Arguments:
+      pkg_request:
+        - pkg_name: %NAME%-%version%
+        - pkgdir: %RECIPE_CACHE_DIR%
+        - id: org.mozilla.firefox.pkg
+        - options: purge_ds_store
+        - chown:
+          - path: Appplications
+          - user: root
+          - group: admin
+
