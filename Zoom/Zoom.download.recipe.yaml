@@ -1,5 +1,5 @@
 Description: Download Zoom Client for meetings
-Identifier: com.github.bishopj-ninds.download.zoom
+Identifier: com.github.bishopja-ninds.download.zoom
 
 Input:
   NAME: Zoom

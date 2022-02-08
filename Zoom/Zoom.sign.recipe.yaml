@@ -1,6 +1,6 @@
 Description:  Signs the Zoom file with the NINDS certificate
 Identifier: com.github.bishopja-ninds.sign.zoom
-ParentRecipe: com.github.bishja-ninds.pkg.zoom
+ParentRecipe: com.github.bishopja-ninds.pkg.zoom
 
 Input:
   SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer&#58; The National Institute of Neurological Disorders and Stroke &#40;UBAH757F69&#41;"
