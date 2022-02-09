@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
   <policy>
     <general>
-      <name>%POLICYNAME%</name>
+      <name>%POLICY_NAME%</name>
       <enabled>true</enabled>
       <trigger>CHECKIN</trigger>
       <trigger_checkin>true</trigger_checkin>
       <frequency>Ongoing</frequency>
-      <category>
-        <name>%CATEGORY%</name>
-      </category>
     </general>
     <scope>
       <computers/>
       <computer_groups>
         <computer_group>
-          <name>%GROUPNAME%</name>
+          <name>%GROUP_NAME%</name>
         </computer_group>
       </computer_groups>
     </scope>

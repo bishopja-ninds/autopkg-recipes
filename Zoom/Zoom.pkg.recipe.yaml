@@ -4,7 +4,7 @@ ParentRecipe: com.github.bishopja-ninds.download.zoom
 
 Input:
   NAME: Zoom
-  VERSIONTYPE: CFBundleVersion
+  VERSIONTYPE: CFBundleShortVersionString
 
 Process:
   - Processor: FlatPkgUnpacker
