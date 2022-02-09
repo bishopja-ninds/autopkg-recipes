@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <policy>
+    <general>
+      <name>%POLICYNAME%</name>
+      <enabled>true</enabled>
+      <trigger>CHECKIN</trigger>
+      <trigger_checkin>true</trigger_checkin>
+      <frequency>Ongoing</frequency>
+      <category>
+        <name>%CATEGORY%</name>
+      </category>
+    </general>
+    <scope>
+      <computers/>
+      <computer_groups>
+        <computer_group>
+          <name>%GROUPNAME%</name>
+        </computer_group>
+      </computer_groups>
+    </scope>
+    <package_configuration>
+      <packages>
+        <size>1</size>
+        <package>
+          <name>%pkg_name%</name>
+          <action>Install</action>
+        </package>
+      </packages>
+    </package_configuration>
+    <maintenance>
+      <recon>true</recon>
+    </maintenance>
+    <user_interaction>
+      <message_start>Software title update is ready</message_start>
+      <allow_users_to_defer>true</allow_users_to_defer>
+      <allow_deferral_until_utc/>
+      <allow_deferral_minutes>2880</allow_deferral_minutes>
+      <message_finish>Software title update complete</message_finish>
+    </user_interaction>
+  </policy>
