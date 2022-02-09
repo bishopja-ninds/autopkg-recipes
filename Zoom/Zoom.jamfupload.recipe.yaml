@@ -4,9 +4,30 @@ ParentRecipe: com.github.bishopja-ninds.sign.zoom
 
 Input:
   CATEGORY: Utilites
+  GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
+  GROUP_NAME: "TestUpdateZoom"
+  POLICY_TEMPLATE: "Policy-template.xml"
+  POLICY_NAME: "Test Update Zoom"
+  TESTING_GROUP_NAME: "TESTGROUP"
+  UPDATE_PREDICATE: "pkg_uploaded == False"
 
 Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
     Arguments:
       pkg_category: "%CATEGORY%"
 
+  - Processor: StopProcessingIf
+    Arguments:
+      predicate: "%UPDATE_PREDICATE%"
+
+  - Processor: com.github.grahampugh.recipes.commonprcessors/VersionRegexGenerator
+
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
+    Arguments:
+      computergroup_template: "%GROUP_TEMPLATE%"
+      computergroup_name: "%GROUP_NAME%"
+
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
+    Arguments:
+      policy_template: "%POLICY_TEMPLATE%"
+      policy_name: "%POLICY_NAME%"
