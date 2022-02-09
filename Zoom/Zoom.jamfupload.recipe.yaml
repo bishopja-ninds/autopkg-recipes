@@ -3,7 +3,6 @@ Identifier: com.github.bishopja-ninds.jamfupload.zoom
 ParentRecipe: com.github.bishopja-ninds.sign.zoom
 
 Input:
-  CATEGORY: Utilites
   GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
   GROUP_NAME: "TestUpdateZoom"
   POLICY_TEMPLATE: "Policy-template.xml"
@@ -13,12 +12,6 @@ Input:
 
 Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
-    Arguments:
-      pkg_category: "%CATEGORY%"
-
-  - Processor: StopProcessingIf
-    Arguments:
-      predicate: "%UPDATE_PREDICATE%"
 
   - Processor: com.github.grahampugh.recipes.commonprocessors/VersionRegexGenerator
 
