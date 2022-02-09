@@ -14,7 +14,7 @@
 		</criterion>
 		<criterion>
 			<name>Application Title</name>
-			<priority>2</priority>
+			<priority>1</priority>
 			<and_or>and</and_or>
 			<search_type>is</search_type>
 			<value>%JSS_INVENTORY_NAME%</value>
@@ -23,7 +23,7 @@
 		</criterion>
 		<criterion>
 			<name>Application Version</name>
-			<priority>1</priority>
+			<priority>2</priority>
 			<and_or>and</and_or>
 			<search_type>does not match regex</search_type>
 			<value>%version_regex%</value>
@@ -32,7 +32,7 @@
 		</criterion>
 		<criterion>
 			<name>Application Version</name>
-			<priority>2</priority>
+			<priority>3</priority>
 			<and_or>and</and_or>
 			<search_type>does not match regex</search_type>
 			<value>%version_regex_2%</value>
