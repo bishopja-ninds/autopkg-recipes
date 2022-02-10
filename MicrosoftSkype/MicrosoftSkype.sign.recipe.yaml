@@ -1,6 +1,6 @@
-Description: Signs the already downloaded and created Microsoft Edge package.
-Identifier: com.github.bishopja-ninds.sign.MicrosoftEdge
-ParentRecipe: com.github.rtrouton.pkg.microsoftedge
+Description: Signs the already downloaded and created Microsoft Skype package.
+Identifier: com.github.bishopja-ninds.recipes.sign.MicrosoftSkype
+ParentRecipe: com.github.autopkg.pkg.Skype
 
 Input:
   SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
@@ -8,5 +8,5 @@ Input:
 Process:
   - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/%VENDOR%_%SOFTWARETITLE%_%version%.pkg"
+      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
       signing_cert: "%SIGNINGCERTIFICATE%"

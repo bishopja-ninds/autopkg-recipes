@@ -1,14 +1,14 @@
 Description: Uploads to the jss
-Identifier: com.github.bishopja-ninds.jamf.mozillafirefox
-ParentRecipe: com.github.bishopja-ninds.sign.mozillafirefox
+Identifier: com.github.bishopja-ninds.jamf.MicrosoftSkypeforBusiness
+ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftSkypeforBusiness
 
 Input:
   GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
-  GROUP_NAME: "TestUpdateMozillaFirefox"
+  GROUP_NAME: "TestUpdateMicrosoftSkypeforBusiness"
   POLICY_TEMPLATE: "Policy-template.xml"
-  POLICY_NAME: "Test Update Firefox"
+  POLICY_NAME: "Test Update Microsoft Skype for Business"
   TESTING_GROUP_NAME: "TESTGROUP"
-  APP_NAME: "Firefox.app"
+  APP_NAME: "Skype for Business.app"
 
 Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 

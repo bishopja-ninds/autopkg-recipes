@@ -1,0 +1,30 @@
+
+Description: Downloads the latest version of Microsoft Skype and makes a pkg. Then, uploads to the Jamf Pro Server.
+Identifier: com.github.bishopja-ninds.recipes.jamf.MicrosoftSkype
+MinimumVersion: "2.3"
+ParentRecipe: com.github.autopkg.pkg.Skype
+
+Input:
+  GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
+  GROUP_NAME: "TestUpdateSkype"
+  POLICY_TEMPLATE: "Policy-template.xml"
+  POLICY_NAME: "Test Update Skype"
+  TESTING_GROUP_NAME: "TESTGROUP"
+  APP_NAME: "Skype"
+
+Process:
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+
+  - Processor: com.github.grahampugh.commonprocessors/VersionRegexGenerator
+
+  - Processor: com.gethub.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
+    Arguments:
+      computergroup_template: "%GROUP_TEMPLATE%"
+      computergroup_name: "%GROUP_NAME%"
+      APP_NAME: "%APP_NAME%"
+
+  - Processor: com.grahampugh.jamf-upload.processor/JamfPolicyUploader
+    Arguments:
+      policy_template: "%POLCIY_TEMPLATE%"
+      policy_name: "%POLICY_NAME%"
+

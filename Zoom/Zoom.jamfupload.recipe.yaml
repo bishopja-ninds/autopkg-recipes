@@ -8,7 +8,7 @@ Input:
   POLICY_TEMPLATE: "Policy-template.xml"
   POLICY_NAME: "Test Update Zoom"
   TESTING_GROUP_NAME: "TESTGROUP"
-  UPDATE_PREDICATE: "pkg_uploaded == False"
+  APP_NAME: "zoom.us.app"
 
 Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
@@ -19,6 +19,7 @@ Process:
     Arguments:
       computergroup_template: "%GROUP_TEMPLATE%"
       computergroup_name: "%GROUP_NAME%"
+      APP_NAME: "%APP_NAME%"
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
     Arguments:

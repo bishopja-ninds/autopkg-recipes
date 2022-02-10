@@ -28,10 +28,10 @@
       <recon>true</recon>
     </maintenance>
     <user_interaction>
-      <message_start>Software title update is ready</message_start>
+      <message_start>An update to %NAME% is available.  Please install now or defer to a later time</message_start>
       <allow_users_to_defer>true</allow_users_to_defer>
       <allow_deferral_until_utc/>
       <allow_deferral_minutes>2880</allow_deferral_minutes>
-      <message_finish>Software title update complete</message_finish>
+      <message_finish>%NAME% update complete</message_finish>
     </user_interaction>
   </policy>

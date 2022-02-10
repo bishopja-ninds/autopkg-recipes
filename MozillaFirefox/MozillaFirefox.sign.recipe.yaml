@@ -3,7 +3,7 @@ Identifier: com.github.bishopja-ninds.sign.mozillafirefox
 ParentRecipe: com.github.bishopja-ninds.pkg.mozillafirefox
 
 Input:
-  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer&#58; The National Institute of Neurological Disorders and Stroke &#40;UBAH757F69&#41;"
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
 
 Process:
   - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
