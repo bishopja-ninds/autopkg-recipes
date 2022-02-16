@@ -1,6 +1,6 @@
 Description: Signs the already downloaded and created Microsoft Skype for Business package.
 Identifier: com.github.bishopja-ninds.sign.MicrosoftSkypeforBusiness
-ParentRecipe: com.github.rtrouton.pkg.microsoftskypeforbusiness365
+ParentRecipe: com.github.rtrouton.pkg.skypeforbusiness365
 
 Input:
   SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"

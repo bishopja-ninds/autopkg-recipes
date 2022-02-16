@@ -1,12 +1,12 @@
 Description: Signs the already downloaded and created Microsoft OneDrive package.
-Identifier: com.github.bishopja-ninds.recipes.sign.MicrosoftOneDrive
+Identifier: com.github.bishopja-ninds.sign.MicrosoftOneDrive
 ParentRecipe: com.github.rtrouton.pkg.microsoftonedrive
 
 Input:
-  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer&#58; The National Institute of Neurological Disorders and Stroke &#40;UBAH757F69&#41;"
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
 
 Process:
   - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+      pkg_path: "%RECIPE_CACHE_DIR%/%VENDOR%_%SOFTWARETITLE%_%version%.pkg"
       signing_cert: "%SIGNINGCERTIFICATE%"

@@ -1,6 +1,6 @@
-Description: Signs the already downloaded and created Microsoft PowerPoint package.
-Identifier: com.github.bishopja-ninds.recipes.sign.MicrosoftPowerPoint
-ParentRecipe: com.github.rtrouton.pkg.microsoftpowerpoint365
+Description: Signs the already downloaded and created Microsoft Remote Desktop package.
+Identifier: com.github.bishopja-ninds.sign.MicrosoftRemoteDesktop
+ParentRecipe: com.github.rtrouton.pkg.microsoftremotedesktop
 
 Input:
   SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
@@ -8,5 +8,5 @@ Input:
 Process:
   - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/%VENDOR%_%SOFTWARETITLE%_%-%version%.pkg"
+      pkg_path: "%RECIPE_CACHE_DIR%/%VENDOR%_%SOFTWARETITLE%_%SOFTWARETYPE%_%version%.pkg"
       signing_cert: "%SIGNINGCERTIFICATE%"

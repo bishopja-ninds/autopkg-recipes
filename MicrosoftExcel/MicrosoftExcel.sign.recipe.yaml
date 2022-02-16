@@ -1,6 +1,6 @@
-Description: Signs the already downloaded and created Oracle Java package.
-Identifier: com.github.bishopja-ninds.sign.OracleJava
-ParentRecipe: com.github.autopkg.pkg.OracleJava8
+Description: Signs the already downloaded and created Microsoft Excel package.
+Identifier: com.github.bishopja-ninds.sign.MicrosoftExcel
+ParentRecipe: com.github.rtrouton.pkg.microsoftexcel365
 
 Input:
   SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
@@ -8,5 +8,5 @@ Input:
 Process:
   - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+      pkg_path: "%RECIPE_CACHE_DIR%/%VENDOR%_%SOFTWARETITLE%_%version%.pkg"
       signing_cert: "%SIGNINGCERTIFICATE%"

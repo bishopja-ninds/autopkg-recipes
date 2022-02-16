@@ -1,5 +1,5 @@
 Description: Signs the already downloaded and created Microsoft Skype package.
-Identifier: com.github.bishopja-ninds.recipes.sign.MicrosoftSkype
+Identifier: com.github.bishopja-ninds.sign.MicrosoftSkype
 ParentRecipe: com.github.autopkg.pkg.Skype
 
 Input:

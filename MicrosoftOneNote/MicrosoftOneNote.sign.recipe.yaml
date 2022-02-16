@@ -1,5 +1,5 @@
 Description: Signs the already downloaded and created Microsoft OneNote package.
-Identifier: com.github.bishopja-ninds.recipes.sign.MicrosoftOneNote
+Identifier: com.github.bishopja-ninds.sign.MicrosoftOneNote
 ParentRecipe: com.github.rtrouton.pkg.microsoftonenote365
 
 Input:
@@ -8,5 +8,5 @@ Input:
 Process:
   - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/%VENDOR%_%SOFTWARETITLE%_%-%version%.pkg"
+      pkg_path: "%RECIPE_CACHE_DIR%/%VENDOR%_%SOFTWARETITLE%_%version%.pkg"
       signing_cert: "%SIGNINGCERTIFICATE%"

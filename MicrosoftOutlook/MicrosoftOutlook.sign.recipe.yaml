@@ -1,6 +1,6 @@
-Description: Signs the already downloaded and created Microsoft Excel package.
-Identifier: com.github.bishopja-ninds.recipes.sign.MicrosoftExcel
-ParentRecipe: com.github.rtrouton.pkg.microsoftexcel365
+Description: Signs the already downloaded and created Microsoft Outlook package.
+Identifier: com.github.bishopja-ninds.sign.MicrosoftOutlook
+ParentRecipe: com.github.rtrouton.pkg.microsoftoutlook365
 
 Input:
   SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"

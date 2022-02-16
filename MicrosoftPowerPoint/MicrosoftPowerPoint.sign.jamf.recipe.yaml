@@ -1,5 +1,5 @@
 Description: Signs the already downloaded and created Microsoft PowerPoint package.
-Identifier: com.github.bishopja-ninds.recipes.sign.MicrosoftPowerPoint
+Identifier: com.github.bishopja-ninds.sign.MicrosoftPowerPoint
 ParentRecipe: com.github.rtrouton.pkg.microsoftpowerpoint365
 
 Input:
@@ -8,5 +8,5 @@ Input:
 Process:
   - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/%VENDOR%_%SOFTWARETITLE%_%-%version%.pkg"
+      pkg_path: "%RECIPE_CACHE_DIR%/%VENDOR%_%SOFTWARETITLE%_%version%.pkg"
       signing_cert: "%SIGNINGCERTIFICATE%"
