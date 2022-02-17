@@ -2,7 +2,7 @@
   <policy>
     <general>
       <name>%POLICY_NAME%</name>
-      <enabled>true</enabled>
+      <enabled>false</enabled>
       <trigger>CHECKIN</trigger>
       <trigger_checkin>true</trigger_checkin>
       <frequency>Ongoing</frequency>
