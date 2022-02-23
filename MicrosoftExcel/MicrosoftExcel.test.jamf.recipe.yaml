@@ -1,24 +1,28 @@
 Description: Uploads to the jss
-Identifier: com.github.bishopja-ninds.jamf.MicrosoftExcel
+Identifier: com.github.bishopja-ninds.upload.MicrosoftExcel
 ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftExcel
 
 Input:
-  GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
+  GROUP_TEMPLATE: "SmartGroupUpdateExemption-template.xml"
   GROUP_NAME: "TestUpdateMicrosoftExcel"
   POLICY_TEMPLATE: "Policy-template.xml"
   POLICY_NAME: "Test Update Microsoft Excel"
   TESTING_GROUP_NAME: "TESTGROUP"
+  EXEMPTION_GROUP_NAME: "14"
+  SITE_ID: "1"
+  SITE_NAME: "NINDS DIR"
   APP_NAME: "Microsoft Excel.app"
 
 Process:
-  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
-
   - Processor: com.github.grahampugh.recipes.commonprocessors/VersionRegexGenerator
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
     Arguments:
       computergroup_template: "%GROUP_TEMPLATE%"
       computergroup_name: "%GROUP_NAME%"
+      EXEMPTION_GROUP_NAME: "%EXEMPTION_GROUP_NAME%"
+      SITE_ID: "%SITE_ID%"
+      SITE_NAME: "%SITE_NAME%"
       APP_NAME: "%APP_NAME%"
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader

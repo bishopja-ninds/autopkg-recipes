@@ -1,5 +1,5 @@
 Description: Downloads the latest version of Microsoft Excel and makes a pkg. Then, uploads to the Jamf Pro Server.
-Identifier: com.github.bishopja-ninds.recipes.jamf.MicrosoftExcel-pkg-upload
+Identifier: com.github.bishopja-ninds.upload.MicrosoftExcel
 MinimumVersion: "2.3"
 ParentRecipe: com.github.bishopja-ninds.recipes.sign.MicrosoftExcel
 
