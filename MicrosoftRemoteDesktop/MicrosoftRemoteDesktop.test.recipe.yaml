@@ -1,24 +1,26 @@
 Description: Uploads to the jss
-Identifier: com.github.bishopja-ninds.jamf.MicrosoftEdge
-ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftEdge
+Identifier: com.github.bishopja-ninds.prod.MicrosoftRemoteDesktop
+ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftRemoteDesktop
 
 Input:
   GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
-  GROUP_NAME: "TestUpdateMicrosoftEdge"
+  GROUP_NAME: "TestUpdateMicrosoftRemoteDesktop"
   POLICY_TEMPLATE: "Policy-template.xml"
-  POLICY_NAME: "Test Update Microsoft Edge"
+  POLICY_NAME: "Test Update Microsoft Remote Desktop"
   TESTING_GROUP_NAME: "TESTGROUP"
-  APP_NAME: "Microsoft Edge.app"
+  SITE_ID: "1"
+  SITE_NAME: "NINDS DIR"
+  APP_NAME: "Microsoft Remote Desktop.app"
 
 Process:
-  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
-
   - Processor: com.github.grahampugh.recipes.commonprocessors/VersionRegexGenerator
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
     Arguments:
       computergroup_template: "%GROUP_TEMPLATE%"
       computergroup_name: "%GROUP_NAME%"
+      SITE_ID: "%SITE_ID%"
+      SITE_NAME: "%SITE_NAME%"
       APP_NAME: "%APP_NAME%"
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader

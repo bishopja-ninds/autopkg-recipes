@@ -1,17 +1,19 @@
-Description: Uploads to the jss
-Identifier: com.github.bishopja-ninds.test.MicrosoftExcel
-ParentRecipe: com.github.bishopja-ninds.upload.MicrosoftExcel
+Description: Downloads the latest version of Google Chrome and makes a pkg. Then, uploads to the Jamf Pro Server.
+Identifier: com.github.bishopja-ninds.test.GoogleChrome
+MinimumVersion: "2.3"
+ParentRecipe: com.github.bishopja-ninds.upload.GoogleChrome
 
 Input:
   GROUP_TEMPLATE: "SmartGroupUpdateExemption-template.xml"
-  GROUP_NAME: "TestUpdateMicrosoftExcel"
+  GROUP_NAME: "TestUpdateGoogleChrome"
   POLICY_TEMPLATE: "Policy-template.xml"
-  POLICY_NAME: "Test Update Microsoft Excel"
+  POLICY_NAME: "Test Update Google Chrome"
   TESTING_GROUP_NAME: "TESTGROUP"
   EXEMPTION_GROUP_NAME: "10.14"
   SITE_ID: "1"
   SITE_NAME: "NINDS DIR"
   APP_NAME: "Microsoft Excel.app"
+  APP_NAME: "Google Chrome.app"
 
 Process:
   - Processor: com.github.grahampugh.recipes.commonprocessors/VersionRegexGenerator
@@ -24,8 +26,10 @@ Process:
       SITE_ID: "%SITE_ID%"
       SITE_NAME: "%SITE_NAME%"
       APP_NAME: "%APP_NAME%"
+      APP_NAME: "%APP_NAME%"
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
     Arguments:
       policy_template: "%POLICY_TEMPLATE%"
       policy_name: "%POLICY_NAME%"
+

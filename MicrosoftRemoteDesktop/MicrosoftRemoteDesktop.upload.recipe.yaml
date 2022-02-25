@@ -1,6 +1,6 @@
 
 Description: Downloads the latest version of Visual Studio Code and makes a pkg. Then, uploads to the Jamf Pro Server.
-Identifier: com.github.bishopja-ninds.recipes.jamf.MSRemoteDesktop-pkg-upload
+Identifier: com.github.bishopja-ninds.update.MicrosoftRemoteDesktop
 MinimumVersion: "2.3"
 ParentRecipe: com.github.rtrouton.pkg.microsoftremotedesktop
 

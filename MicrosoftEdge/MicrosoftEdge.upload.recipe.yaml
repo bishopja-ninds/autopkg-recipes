@@ -1,7 +1,7 @@
 Description: Downloads the latest version of Microsoft Edge and makes a pkg. Then, uploads to the Jamf Pro Server.
-Identifier: com.github.bishopja-ninds.recipes.jamf.MicrosoftEdge-pkg-upload
+Identifier: com.github.bishopja-ninds.upload.MicrosoftEdge
 MinimumVersion: "2.3"
-ParentRecipe: com.github.bishopja-ninds.recipes.sign.MicrosoftEdge
+ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftEdge
 
 Input:
   CATEGORY: Browsers
