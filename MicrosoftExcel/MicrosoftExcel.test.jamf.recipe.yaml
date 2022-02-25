@@ -1,6 +1,6 @@
 Description: Uploads to the jss
-Identifier: com.github.bishopja-ninds.upload.MicrosoftExcel
-ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftExcel
+Identifier: com.github.bishopja-ninds.test.MicrosoftExcel
+ParentRecipe: com.github.bishopja-ninds.upload.MicrosoftExcel
 
 Input:
   GROUP_TEMPLATE: "SmartGroupUpdateExemption-template.xml"

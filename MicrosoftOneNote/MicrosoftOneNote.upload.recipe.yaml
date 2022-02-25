@@ -1,7 +1,7 @@
 Description: Downloads the latest version of Microsoft OneNote and makes a pkg. Then, uploads to the Jamf Pro Server.
-Identifier: com.github.bishopja-ninds.recipes.jamf.MicrosoftOneNote-pkg-upload
+Identifier: com.github.bishopja-ninds.upload.MicrosoftOneNote
 MinimumVersion: "2.3"
-ParentRecipe: com.github.bishopja-ninds.recipes.sign.MicrosoftOneNote
+ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftOneNote
 
 Input:
   CATEGORY: Utilities
