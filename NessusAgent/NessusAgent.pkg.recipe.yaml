@@ -1,0 +1,68 @@
+Description: Unpacks and rebulids the Zoom installer to include the version number
+Identifier: com.github.bishopja-ninds.pkg.NessusAgent
+ParentRecipe: com.github.bishopja-ninds.download.NessusAgent
+
+Input:
+  NAME: NessusAgent 
+  VERSIONTYPE: CFBundleShortVersionString
+
+
+Process:
+- Processor: PkgRootCreator
+  Arguments:
+    pkgdirs: {}
+    pkgroot: "%RECIPE_CACHE_DIR%/pkgroot"
+
+- Processor: PkgRootCreator
+  Arguments:
+    pkgdirs: {}
+    pkgroot: "%RECIPE_CACHE_DIR%/Scripts"
+
+- Processor: Copier
+  Arguments:
+    source_path: "%RECIPE_CACHE_DIR%/downloads/%NAME%.dmg"
+    destination_path: "%RECIPE_CACHE_DIR%/Scripts/%NAME%.dmg"
+
+- Processor: FileCreator
+  Arguments:
+    file_content: |
+      #!/bin/bash
+      KEY="2c23ba1f248457878d13aa58ddedf544c0806c79f3a58b8c1a420d8d12cdbfcf"
+      PORT="443"
+      HOST="cloud.tenable.com"
+      INSTALL_DIR=$(dirname $0)
+      computerName=$(scutil --get ComputerName)
+      computerName=$(echo ${computerName}|tr '[:upper:]' '[:lower:]')
+      scutil --set HostName ${computerName}
+      image="${INSTALL_DIR}/NessusAgent.dmg"
+      if [[ -e "/Library/NessusAgent/run/sbin/nessuscli" ]]; then
+      $(/Library/NessusAgent/run/sbin/nessuscli agent unlink)
+      kill -9 /Library/NessusAgent/run/sbin/nessus-service
+          rm -rf /Library/NessusAgent
+          rm -rf /Library/LaunchDaemons/com.tenablesecurity.nessusd.plist
+          rm -rf /Library/PreferencePanes/Nessus Preferences.prefPane
+      	rm /etc/tenable_tag
+          launchctl remove com.tenablesecurity.nessusd
+      fi
+      hdiutil attach ${image}
+      /usr/sbin/installer -pkg /Volumes/Nessus\ Agent\ Install/Install\ Nessus\ Agent.pkg -target /
+      hdiutil detach /Volumes/Nessus\ Agent\ Install
+      /Library/NessusAgent/run/sbin/nessuscli agent link --key=${KEY} --host=${HOST} --port=${PORT} --groups=NINDS
+    file_mode: "0755"
+    file_path: "%RECIPE_CACHE_DIR%/Scripts/postinstall"
+
+- Processor: PkgCreator
+  Arguments:
+    force_pkg_build: true
+    pkg_request:
+      id: com.tenable.NessusAgent%version%
+      options: purge_ds_store
+      pkgname: "%NAME%-%version%"
+      pkgroot: pkgroot
+      scripts: Scripts
+
+- Processor: PathDeleter
+  Arguments:
+    path_list:
+      - "%RECIPE_CACHE_DIR%/pkgroot"
+      - "%RECIPE_CACHE_DIR%/Scripts"

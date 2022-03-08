@@ -1,6 +1,6 @@
 Description: Uploads to the jss
-Identifier: com.github.bishopja-ninds.jamfupload.zoom
-ParentRecipe: com.github.bishopja-ninds.sign.zoom
+Identifier: com.github.bishopja-ninds.test.zoom
+ParentRecipe: com.github.bishopja-ninds.upload.zoom
 
 Input:
   GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
@@ -8,17 +8,19 @@ Input:
   POLICY_TEMPLATE: "Policy-template.xml"
   POLICY_NAME: "Test Update Zoom"
   TESTING_GROUP_NAME: "TESTGROUP"
+  SITE_ID: "1"
+  SITE_NAME: "NINDS DIR"
   APP_NAME: "zoom.us.app"
 
 Process:
-  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
-
   - Processor: com.github.grahampugh.recipes.commonprocessors/VersionRegexGenerator
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
     Arguments:
       computergroup_template: "%GROUP_TEMPLATE%"
       computergroup_name: "%GROUP_NAME%"
+      SITE_ID: "%SITE_ID%"
+      SITE_NAME: "%SITE_NAME%"
       APP_NAME: "%APP_NAME%"
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader

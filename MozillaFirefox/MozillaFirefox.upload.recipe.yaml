@@ -1,5 +1,5 @@
 Description: Upload the signed package to the jss
-Identifier: com.github.bishopja-ninds.jamfupload.mozillafirefox
+Identifier: com.github.bishopja-ninds.upload.mozillafirefox
 ParentRecipe: com.github.bishopja-ninds.sign.mozillafirefox
 
 Input:

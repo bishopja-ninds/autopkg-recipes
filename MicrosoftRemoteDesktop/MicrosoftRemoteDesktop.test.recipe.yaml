@@ -11,6 +11,7 @@ Input:
   SITE_ID: "1"
   SITE_NAME: "NINDS DIR"
   APP_NAME: "Microsoft Remote Desktop.app"
+  pkg_name: "%VENDOR%_%SOFTWARETITLE%_%SOFTWARETYPE%_%version%.pkg"
 
 Process:
   - Processor: com.github.grahampugh.recipes.commonprocessors/VersionRegexGenerator

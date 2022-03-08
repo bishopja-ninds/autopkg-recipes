@@ -1,15 +1,17 @@
 Description: Uploads to the jss
-Identifier: com.github.bishopja-ninds.jamf.NoMachine
-ParentRecipe: com.github.bishopja-ninds.upload.NoMachine
+Identifier: com.github.bishopja-ninds.test.mozillafirefox
+ParentRecipe: com.github.bishopja-ninds.sign.mozillafirefox
 
 Input:
   GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
-  GROUP_NAME: "TestUpdateNoMachine"
+  GROUP_NAME: "TestUpdateMozillaFirefox"
   POLICY_TEMPLATE: "Policy-template.xml"
-  POLICY_NAME: "Test Update NoMachine"
+  POLICY_NAME: "Test Update Firefox"
   TESTING_GROUP_NAME: "TESTGROUP"
-  APP_NAME: "NoMachine.app"
-
+  SITE_ID: "1"
+  SITE_NAME: "NINDS DIR"
+  APP_NAME: "Firefox.app"
+  pkg_name: "%NAME%-%version%.pkg"
 
 Process:
   - Processor: com.github.grahampugh.recipes.commonprocessors/VersionRegexGenerator
@@ -18,10 +20,11 @@ Process:
     Arguments:
       computergroup_template: "%GROUP_TEMPLATE%"
       computergroup_name: "%GROUP_NAME%"
+      SITE_ID: "%SITE_ID%"
+      SITE_NAME: "%SITE_NAME%"
       APP_NAME: "%APP_NAME%"
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
     Arguments:
       policy_template: "%POLICY_TEMPLATE%"
       policy_name: "%POLICY_NAME%"
-

@@ -4,11 +4,47 @@ ParentRecipe: com.github.bishopja-ninds.download.NoMachine
 
 Input:
   NAME: NoMachine
+  version: "7.8"
 
 Process:
+- Processor: PkgRootCreator
+  Arguments:
+    pkgdirs: {}
+    pkgroot: "%RECIPE_CACHE_DIR%/pkgroot"
 
-  - Processor: PkgCopier
-    Arguments:
-      source_pkg: "%pathname%/NoMachine.pkg"
-      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%url_version_number%.pkg"
+- Processor: PkgRootCreator
+  Arguments:
+    pkgdirs: {}
+    pkgroot: "%RECIPE_CACHE_DIR%/Scripts"
 
+- Processor: PkgCopier
+  Arguments:
+    source_pkg:  "%pathname%/%NAME%.pkg"
+    pkg_path: "%RECIPE_CACHE_DIR%/Scripts/%NAME%.pkg"
+
+- Processor: FileCreator
+  Arguments:
+    file_content: |
+      #!/bin/bish
+
+      INSTALL_DIR=$(dirname $0)
+      /usr/bin/installer -pkg ${INSTALL_DIR}/NoMachine.pkg -target /
+      /usr/bin/sed -i '' 's/PhysicalDesktopSharing 1/PhysicalDesktopSharing 0/' /Applications/NoMachine.app/Contents/Frameworks/etc/server.cfg
+      /etc/NX/nxserver --shutdown
+    file_mode: "0755"
+    file_path: "%RECIPE_CACHE_DIR%/Scripts/postinstall"
+- Processor: PkgCreator
+  Arguments:
+    force_pkg_build: true
+    pkg_request:
+      id: com.NoMachine.NoMachine
+      options: purge_ds_store
+      pkgname: "%NAME%-%url_version_number%"
+      pkgroot: pkgroot
+      scripts: Scripts
+
+- Processor: PathDeleter
+  Arguments:
+    path_list:
+      - "%RECIPE_CACHE_DIR%/pkgroot"
+      - "%RECIPE_CACHE_DIR%/Scripts"

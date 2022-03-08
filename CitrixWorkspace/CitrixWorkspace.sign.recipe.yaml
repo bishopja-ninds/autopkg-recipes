@@ -1,0 +1,13 @@
+Description: Downloads the latest version of Citrix Workspace and makes a pkg. Then, uploads to the Jamf Pro Server.
+Identifier: com.github.bishopja-ninds.sign.CitrixWorkspace
+MinimumVersion: "2.3"
+ParentRecipe: com.github.rtrouton.pkg.citrixworkspace
+
+Input:
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
+
+Process:
+  - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/%VENDOR%_%SOFTWARETITLE%_%version%.pkg"
+      signing_cert: "%SIGNINGCERTIFICATE%"

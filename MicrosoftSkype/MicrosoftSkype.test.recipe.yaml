@@ -1,27 +1,31 @@
-Description: Uploads to the jss
-Identifier: com.github.bishopja-ninds.jamf.mozillafirefox
-ParentRecipe: com.github.bishopja-ninds.sign.mozillafirefox
+Description: Downloads the latest version of Microsoft Skype and makes a pkg. Then, uploads to the Jamf Pro Server.
+Identifier: com.github.bishopja-ninds.test.MicrosoftSkype
+MinimumVersion: "2.3"
+ParentRecipe: com.github.bishopja-ninds.upload.MicrosoftSkype
 
 Input:
   GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
-  GROUP_NAME: "TestUpdateMozillaFirefox"
+  GROUP_NAME: "TestUpdateSkype"
   POLICY_TEMPLATE: "Policy-template.xml"
-  POLICY_NAME: "Test Update Firefox"
+  POLICY_NAME: "Test Update Skype"
   TESTING_GROUP_NAME: "TESTGROUP"
-  APP_NAME: "Firefox.app"
+  SITE_ID: "1"
+  SITE_NAME: "NINDS DIR"
+  APP_NAME: "Skype.app"
 
 Process:
-  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
-
   - Processor: com.github.grahampugh.recipes.commonprocessors/VersionRegexGenerator
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
     Arguments:
       computergroup_template: "%GROUP_TEMPLATE%"
       computergroup_name: "%GROUP_NAME%"
+      SITE_ID: "%SITE_ID%"
+      SITE_NAME: "%SITE_NAME%"
       APP_NAME: "%APP_NAME%"
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
     Arguments:
       policy_template: "%POLICY_TEMPLATE%"
       policy_name: "%POLICY_NAME%"
+

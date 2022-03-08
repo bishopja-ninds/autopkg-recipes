@@ -1,0 +1,13 @@
+Description: Downloads the latest version of Slackand makes a pkg. Then, uploads to the Jamf Pro Server.
+Identifier: com.github.bishopja-ninds.sign.Slack
+MinimumVersion: "2.3"
+ParentRecipe: com.github.killahquam.pkg.slack
+
+Input:
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
+
+Process:
+  - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+      signing_cert: "%SIGNINGCERTIFICATE%"

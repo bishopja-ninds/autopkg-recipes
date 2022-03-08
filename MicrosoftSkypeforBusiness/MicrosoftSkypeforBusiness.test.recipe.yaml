@@ -1,19 +1,19 @@
-
-Description: Downloads the latest version of Microsoft Skype and makes a pkg. Then, uploads to the Jamf Pro Server.
-Identifier: com.github.bishopja-ninds.jamf.MicrosoftSkype
-MinimumVersion: "2.3"
-ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftSkype
+Description: Uploads to the jss and creates the groups and 
+Identifier: com.github.bishopja-ninds.test.MicrosoftSkypeforBusiness
+ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftSkypeforBusiness
 
 Input:
   GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
-  GROUP_NAME: "TestUpdateSkype"
+  GROUP_NAME: "TestUpdateMicrosoftSkypeforBusiness"
   POLICY_TEMPLATE: "Policy-template.xml"
-  POLICY_NAME: "Test Update Skype"
+  POLICY_NAME: "Test Update Microsoft Skype for Business"
   TESTING_GROUP_NAME: "TESTGROUP"
-  APP_NAME: "Skype.app"
+  SITE_ID: "1"
+  SITE_NAME: "NINDS DIR"
+  APP_NAME: "Skype for Business.app"
 
 Process:
-  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
 
   - Processor: com.github.grahampugh.recipes.commonprocessors/VersionRegexGenerator
 
@@ -21,10 +21,11 @@ Process:
     Arguments:
       computergroup_template: "%GROUP_TEMPLATE%"
       computergroup_name: "%GROUP_NAME%"
+      SITE_ID: "%SITE_ID%"
+      SITE_NAME: "%SITE_NAME%"
       APP_NAME: "%APP_NAME%"
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
     Arguments:
       policy_template: "%POLICY_TEMPLATE%"
       policy_name: "%POLICY_NAME%"
-

@@ -1,7 +1,7 @@
 Description: Downloads the latest version of Microsoft Skype for Business and makes a pkg. Then, uploads to the Jamf Pro Server.
-Identifier: com.github.bishopja-ninds.recipes.jamf.MicrosoftSkypeforBusiness-pkg-upload
+Identifier: com.github.bishopja-ninds.upload.MicrosoftSkypeforBusiness
 MinimumVersion: "2.3"
-ParentRecipe: com.github.bishopja-ninds.recipes.sign.MicrosoftSkypeforBusiness
+ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftSkypeforBusiness
 
 Input:
   CATEGORY: Utilities
