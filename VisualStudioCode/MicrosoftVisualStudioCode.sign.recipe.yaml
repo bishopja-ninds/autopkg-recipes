@@ -1,7 +1,7 @@
 Description: Downloads the latest version of Visual Studio Code and makes a pkg. Then, uploads to the Jamf Pro Server.
 Identifier: com.github.bishopja-ninds.sign.MicrosoftVisualStudioCode
 MinimumVersion: "2.3"
-ParentRecipe: com.github.killahquam.pkg.visualstudiocode
+ParentRecipe: com.github.killahquam.pkg.visualstudioscode
 
 Input:
   SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"

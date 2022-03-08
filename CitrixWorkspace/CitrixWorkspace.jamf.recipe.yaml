@@ -1,6 +1,6 @@
 Description: Uploads to the jss
-Identifier: com.github.bishopja-ninds.jamf.MicrosoftVisualStudioCode
-ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftVisualStudioCode
+Identifier: com.github.bishopja-ninds.jamf.CitrixWorkspace
+ParentRecipe: com.github.bishopja-ninds.upload.CitrixWorkspace
 
 Input:
   GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
@@ -12,11 +12,6 @@ Input:
 
 
 Process:
-
-  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
-
-  - Processor: com.github.grahampugh.recipes.commonprocessors/VersionRegexGenerator
-
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
     Arguments:
       computergroup_template: "%GROUP_TEMPLATE%"

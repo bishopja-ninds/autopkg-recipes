@@ -1,0 +1,15 @@
+Description: Uploads to the jss
+Identifier: com.github.bishopja-ninds.upload.MicrosoftVisualStudioCode
+ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftVisualStudioCode
+
+Input:
+  GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
+  GROUP_NAME: "TestUpdateNoMachine"
+  POLICY_TEMPLATE: "Policy-template.xml"
+  POLICY_NAME: "Test Update Microsoft Visual Studio Code"
+  TESTING_GROUP_NAME: "TESTGROUP"
+  APP_NAME: "Visual Studio Code.app"
+
+
+Process:
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
