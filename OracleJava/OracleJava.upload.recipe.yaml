@@ -1,15 +1,14 @@
 Description: Uploads to the jss
-Identifier: com.github.bishopja-ninds.upload.CitrixWorkspace
-ParentRecipe: com.github.bishopja-ninds.sign.CitrixWorkspace
+Identifier: com.github.bishopja-ninds.upload.OracleJava
+ParentRecipe: com.github.bishopja-ninds.sign.OracleJava
 
 Input:
   GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
-  GROUP_NAME: "TestUpdateNoMachine"
+  GROUP_NAME: "TestUpdateOracleJava"
   POLICY_TEMPLATE: "Policy-template.xml"
-  POLICY_NAME: "Test Update Microsoft Visual Studio Code"
+  POLICY_NAME: "Test Update Oracle Java"
   TESTING_GROUP_NAME: "TESTGROUP"
-  APP_NAME: "Visual Studio Code.app"
-
+  APP_NAME: "Microsoft Word.app"
 
 Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 

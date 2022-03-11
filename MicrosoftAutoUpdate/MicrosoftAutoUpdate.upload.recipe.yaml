@@ -1,10 +1,10 @@
 Description: Downloads the latest version of Visual Studio Code and makes a pkg. Then, uploads to the Jamf Pro Server.
-Identifier: com.github.bishopja-ninds.upload.MicrosoftPowerPoint
+Identifier: com.github.bishopja-ninds.upload.MicrosoftAutoUpdate
 MinimumVersion: "2.3"
-ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftPowerPoint
+ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftAutoUpdate
 
 Input:
-  CATEGORY: Productivity
+  CATEGORY: Utilities
 
 Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader

@@ -1,0 +1,11 @@
+Description: Upload the signed package to the jss
+Identifier: com.github.bishopja-ninds.upload.BoxDrive
+ParentRecipe: com.github.bishopja-ninds.sign.BoxDrive
+
+Input:
+  CATEGORY: Utilities
+
+Process:
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+    Arguments:
+      pkg_category: "%CATEGORY%"

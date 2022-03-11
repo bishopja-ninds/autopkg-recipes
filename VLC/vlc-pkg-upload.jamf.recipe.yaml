@@ -1,4 +1,3 @@
-
 Description: Downloads the latest version of VLC and makes a pkg. Then, uploads to the Jamf Pro Server.
 Identifier: com.github.bishopja-ninds.recipes.jamf.vlc-pkg-upload
 MinimumVersion: "2.3"

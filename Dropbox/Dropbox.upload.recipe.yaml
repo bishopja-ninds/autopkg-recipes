@@ -1,7 +1,7 @@
 Description: Downloads the latest version of Dropbox and makes a pkg. Then, uploads to the Jamf Pro Server.
-Identifier: com.github.bishopja-ninds.recipes.jamf.Dropbox-pkg-upload
+Identifier: com.github.bishopja-ninds.upload.Dropbox
 MinimumVersion: "2.3"
-ParentRecipe: com.github.autopkg.pkg.dropbox
+ParentRecipe: com.github.bishopja-ninds.sign.Dropbox
 
 Input:
   CATEGORY: Utilities

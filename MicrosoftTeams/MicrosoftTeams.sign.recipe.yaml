@@ -1,5 +1,5 @@
 Description: Signs the already downloaded and created Microsoft Teams package.
-Identifier: com.github.bishopja-ninds.recipes.sign.MicrosoftTeams
+Identifier: com.github.bishopja-ninds.sign.MicrosoftTeams
 ParentRecipe: com.github.rtrouton.pkg.microsoftteams
 
 Input:
