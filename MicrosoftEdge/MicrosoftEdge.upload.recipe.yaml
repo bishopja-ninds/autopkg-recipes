@@ -4,9 +4,10 @@ MinimumVersion: "2.3"
 ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftEdge
 
 Input:
-  CATEGORY: Browsers
+  CATEGORY: "Web Browsers and Internet Utilities"
 
 Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
     Arguments:
       pkg_category: "%CATEGORY%"
+      replace_pkg: 'True'

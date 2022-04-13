@@ -1,6 +1,6 @@
 Description: Signs the alread built pkg
-Identifier: com.github.bishopja-ninds.sign.mozillafirefox
-ParentRecipe: com.github.bishopja-ninds.pkg.mozillafirefox
+Identifier: com.github.bishopja-ninds.sign.MozillaFirefox
+ParentRecipe: com.github.bishopja-ninds.pkg.MozillaFirefox
 
 Input:
   SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"

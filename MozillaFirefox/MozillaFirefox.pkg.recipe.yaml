@@ -1,6 +1,6 @@
 Description: Builds a package with the already downloaded file
-Identifier: com.github.bishopja-ninds.pkg.mozillafirefox
-ParentRecipe: com.github.bishopja-ninds.download.mozillafirefox
+Identifier: com.github.bishopja-ninds.pkg.MozillaFirefox
+ParentRecipe: com.github.bishopja-ninds.download.MozillaFirefox
 
 Input:
   NAME: FirefoxESR

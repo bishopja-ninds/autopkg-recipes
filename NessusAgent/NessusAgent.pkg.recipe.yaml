@@ -5,12 +5,14 @@ ParentRecipe: com.github.bishopja-ninds.download.NessusAgent
 Input:
   NAME: NessusAgent 
   VERSIONTYPE: CFBundleShortVersionString
+  DISABLE_CODE_SIGNATURE_VERIFICATION: 1
 
 
 Process:
 - Processor: PkgRootCreator
   Arguments:
-    pkgdirs: {}
+    pkgdirs:
+      tmp: '775'
     pkgroot: "%RECIPE_CACHE_DIR%/pkgroot"
 
 - Processor: PkgRootCreator
@@ -21,7 +23,7 @@ Process:
 - Processor: Copier
   Arguments:
     source_path: "%RECIPE_CACHE_DIR%/downloads/%NAME%.dmg"
-    destination_path: "%RECIPE_CACHE_DIR%/Scripts/%NAME%.dmg"
+    destination_path: "%RECIPE_CACHE_DIR%/pkgroot/tmp/%NAME%.dmg"
 
 - Processor: FileCreator
   Arguments:
@@ -30,7 +32,7 @@ Process:
       KEY="2c23ba1f248457878d13aa58ddedf544c0806c79f3a58b8c1a420d8d12cdbfcf"
       PORT="443"
       HOST="cloud.tenable.com"
-      INSTALL_DIR=$(dirname $0)
+      INSTALL_DIR="/private/tmp"
       computerName=$(scutil --get ComputerName)
       computerName=$(echo ${computerName}|tr '[:upper:]' '[:lower:]')
       scutil --set HostName ${computerName}

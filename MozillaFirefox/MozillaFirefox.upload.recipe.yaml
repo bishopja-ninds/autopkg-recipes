@@ -1,9 +1,9 @@
 Description: Upload the signed package to the jss
-Identifier: com.github.bishopja-ninds.upload.mozillafirefox
-ParentRecipe: com.github.bishopja-ninds.sign.mozillafirefox
+Identifier: com.github.bishopja-ninds.upload.MozillaFirefox
+ParentRecipe: com.github.bishopja-ninds.sign.MozillaFirefox
 
 Input:
-  CATEGORY: Browsers
+  CATEGORY: "Web Browsers and Internet Utilities" 
 
 Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader

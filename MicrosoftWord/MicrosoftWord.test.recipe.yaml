@@ -3,15 +3,21 @@ Identifier: com.github.bishopja-ninds.test.MicrosoftWord
 ParentRecipe: com.github.bishopja-ninds.upload.MicrosoftWord
 
 Input:
-  GROUP_TEMPLATE: "SmartGroupUpdateExemption-template.xml"
+  GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
   GROUP_NAME: "TestUpdateMicrosoftWord"
-  POLICY_TEMPLATE: "Policy-template.xml"
-  POLICY_NAME: "Test Update Microsoft Word"
-  TESTING_GROUP_NAME: "TESTGROUP"
-  EXEMPTION_GROUP_NAME: "14"
+  DEFER_POLICY_TEMPLATE: "Policy-test-deferral-template.xml"
+  DEFER_POLICY_NAME: "Test Update MicrosoftWord"
+  INSTALL_POLICY_TEMPLATE: "Policy-test-install-template.xml"
+  INSTALL_POLICY_NAME: "Update %SIMPLE_NAME%"
+  TESTING_GROUP_NAME: "TestGroup"
   SITE_ID: "1"
   SITE_NAME: "NINDS DIR"
+  SIMPLE_NAME: "Microsoft Word"
   APP_NAME: "Microsoft Word.app"
+  PROCESS_NAME: "Microsoft Word"
+  TRIGGER: "update-microsoftword"
+  UPDATE_PREDICATE: "pkg_uploaded == False"
+  DISABLE_CODE_SIGNATURE_VERIFICATION: 1
 
 Process:
   - Processor: com.github.grahampugh.recipes.commonprocessors/VersionRegexGenerator
@@ -20,12 +26,17 @@ Process:
     Arguments:
       computergroup_template: "%GROUP_TEMPLATE%"
       computergroup_name: "%GROUP_NAME%"
-      EXEMPTION_GROUP_NAME: "%EXEMPTION_GROUP_NAME%"
       SITE_ID: "%SITE_ID%"
       SITE_NAME: "%SITE_NAME%"
       APP_NAME: "%APP_NAME%"
+      replace_group: 'True'
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
     Arguments:
-      policy_template: "%POLICY_TEMPLATE%"
-      policy_name: "%POLICY_NAME%"
+      policy_template: "%DEFER_POLICY_TEMPLATE%"
+      policy_name: "%DEFER_POLICY_NAME%"
+
+  - Processor: com.github.grahampugh.jamf.upload.processors/JamfPolicyUploader
+    Arguments:
+      policy_template: "%INSTALL_POLICY_TEMPLATE%"
+      policy_name: "%INSTALL_POLICY_NAME%"  

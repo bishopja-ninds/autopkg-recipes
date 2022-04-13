@@ -5,12 +5,18 @@ ParentRecipe: com.github.bishopja-ninds.upload.zoom
 Input:
   GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
   GROUP_NAME: "TestUpdateZoom"
-  POLICY_TEMPLATE: "Policy-template.xml"
-  POLICY_NAME: "Test Update Zoom"
-  TESTING_GROUP_NAME: "TESTGROUP"
+  DEFER_POLICY_TEMPLATE: "Policy-test-deferral-template.xml"
+  DEFER_POLICY_NAME: "Test Update Zoom"
+  INSTALL_POLICY_TEMPLATE: "Policy-test-install-template.xml"
+  INSTALL_POLICY_NAME: "Update %SIMPLE_NAME%"
+  TESTING_GROUP_NAME: "ME"
   SITE_ID: "1"
   SITE_NAME: "NINDS DIR"
+  SIMPLE_NAME: "Zoom"
   APP_NAME: "zoom.us.app"
+  PROCESS_NAME: "zoom.us"
+  TRIGGER: "zoom2test"
+  UPDATE_PREDICATE: "pkg_uploaded == False"
 
 Process:
   - Processor: com.github.grahampugh.recipes.commonprocessors/VersionRegexGenerator
@@ -25,5 +31,10 @@ Process:
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
     Arguments:
-      policy_template: "%POLICY_TEMPLATE%"
-      policy_name: "%POLICY_NAME%"
+      policy_template: "%DEFER_POLICY_TEMPLATE%"
+      policy_name: "%DEFER_POLICY_NAME%"
+
+  - Processor: com.github.grahampugh.jamf.upload.processors/JamfPolicyUploader
+    Arguments:
+      policy_template: "%INSTALL_POLICY_TEMPLATE%"
+      policy_name: "%INSTALL_POLICY_NAME%"  

@@ -1,5 +1,5 @@
 Description: Dowload receipt for Firefox ESR.  
-Identifier: com.github.bishopja-ninds.download.mozillafirefox
+Identifier: com.github.bishopja-ninds.download.MozillaFirefox
 
 Input:
   RELEASE: latest

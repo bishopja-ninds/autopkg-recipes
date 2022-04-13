@@ -4,12 +4,13 @@ ParentRecipe: com.github.bishopja-ninds.download.NoMachine
 
 Input:
   NAME: NoMachine
-  version: "7.8"
+  version: "7.9.2"
 
 Process:
 - Processor: PkgRootCreator
   Arguments:
-    pkgdirs: {}
+    pkgdirs:
+      tmp: '775'
     pkgroot: "%RECIPE_CACHE_DIR%/pkgroot"
 
 - Processor: PkgRootCreator
@@ -20,15 +21,14 @@ Process:
 - Processor: PkgCopier
   Arguments:
     source_pkg:  "%pathname%/%NAME%.pkg"
-    pkg_path: "%RECIPE_CACHE_DIR%/Scripts/%NAME%.pkg"
+    pkg_path: "%RECIPE_CACHE_DIR%/pkgroot/tmp/%NAME%.pkg"
 
 - Processor: FileCreator
   Arguments:
     file_content: |
-      #!/bin/bish
+      #!/bin/bash
 
-      INSTALL_DIR=$(dirname $0)
-      /usr/bin/installer -pkg ${INSTALL_DIR}/NoMachine.pkg -target /
+      /usr/sbin/installer -pkg /private/tmp/NoMachine.pkg -target /
       /usr/bin/sed -i '' 's/PhysicalDesktopSharing 1/PhysicalDesktopSharing 0/' /Applications/NoMachine.app/Contents/Frameworks/etc/server.cfg
       /etc/NX/nxserver --shutdown
     file_mode: "0755"

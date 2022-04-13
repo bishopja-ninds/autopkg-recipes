@@ -1,6 +1,6 @@
 Description: Uploads to the jss
-Identifier: com.github.bishopja-ninds.upload.MicrosoftWord
-ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftWord
+Identifier: com.github.bishopja-ninds.upload.MicrosoftTeams
+ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftTeams
 
 Input:
   GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
