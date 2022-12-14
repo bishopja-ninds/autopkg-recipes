@@ -1,0 +1,13 @@
+Description: Signs the already downloaded and created VLC package.
+Identifier: com.github.bishopja-ninds.sign.MendeleyReferenceManager
+ParentRecipe: com.github.bishopja-ninds.pkg.MendeleyReferenceManager
+
+Input:
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
+  PKG_NAME: MendeleyReferenceManager
+
+Process:
+  - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/%PKG_NAME%-%version%.pkg"
+      signing_cert: "%SIGNINGCERTIFICATE%"

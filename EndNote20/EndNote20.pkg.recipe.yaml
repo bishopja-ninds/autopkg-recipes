@@ -1,0 +1,11 @@
+Description: Downloads latest Endnote 20 installer and uses it to create a package.
+Identifier: com.github.bishopja-ninds.pkg.EndNote20
+ParentRecipe: com.github.rtrouton.download.EdNote20
+
+
+Input:
+  NAME: EndNote 20
+
+
+Process:
+

@@ -1,0 +1,95 @@
+
+[MacVector 4 users;;MacVector]
+license.version=1
+license.type=KSpi
+license.ident= 1073745418
+license.merge= yes
+license.created= 2020-10-16
+license.expires= never
+license.data= <00083132333435363738>
+feature.count= 4
+sign.certificate= <
+    63656E766E766C700000011C766572736C6F6E67
+    00000004000000006365727463657274000000B4
+    69646E746C6F6E670000000400000E0070726E74
+    6C6F6E6700000004000000016E616D6574657874
+    000000094D6163566563746F7200000063617061
+    74657874000000044B537069706B657964617461
+    000000606CDC62BDF0ED846BA841A17FDD412F03
+    66F2A5123456B2E73D483B4509DC358503E33BE7
+    4A7F849B9133F612F1F253AEB209043D6F344D0F
+    6CFAAD2AB48F239B5889CC847FFF13643EBF7E6D
+    43124FBEEB13CFD18504992E272D77E5A7FC1DEA
+    6175746864617461000000401EA50D2352C112C9
+    7ED8AEF808A0C177787928B94FA47AF403D6D8D7
+    A3ECB465128E99C4B25925924318EB14B00C78B8
+    33BB99D5C3DE1AE6A19CB35E606092F8>
+digest.sign=<
+      2348946187931296728028226783714329195392025932711981481879973892
+      7757798220750,22738742964833734270407081718103292314109906442765
+      304813565112511184662692083>
+digest.seal=<
+      4796841650555609962777258828447535564513594268055212594675669633
+      7907757867860,20938584813370804481530001579854800465399371395196
+      589274717246672567125607365>
+digest.md4= 1AC67AA94AE168C01777D72B8600DCFD
+comment.copyright=(c)1997 Sassafras Software Inc.
+
+
+[K5BMQ5AQ5EB297R-1122]
+comment.legal=<
+    Sassafras KeySight 7.7
+    License Certificate
+    THIS LICENSE CERTIFICATE AND SERIAL NUMBER ARE AUTHORIZED FOR USE
+    ON A SINGLE COMPUTER. YOU MAY NOT MAKE COPIES EXCEPT FOR BACKUP
+    PURPOSES. IT IS THE OBLIGATION OF THE LICENSEE TO PROTECT THIS
+    LICENSE CERTIFICATE FROM THEFT, FROM UNAUTHORIZED USE, AND FROM
+    USE ON MORE THAN ONE SINGLE COMPUTER.
+    This unique license certificate includes the configuration
+    parameters and codes below.  Any alterations of the certificate
+    will make it invalid.>
+comment.copyright=(c)1990-2020 Sassafras Software Inc.
+license.version= 1
+license.type= KSrv
+license.ident= 2
+license.range= 5.0-7.7
+license.created= 2020-10-14
+license.expires= never
+license.merge= no
+feature.server= 563
+feature.seat= 100
+feature.machines= 5000
+feature.keys= 15
+feature.admin= 252182789
+feature.portable= yes
+feature.authentication= yes
+feature.reservations= no
+feature.audit= no
+feature.printers= no
+feature.purchases= no
+feature.vendor= yes
+feature.shared= yes
+feature.sticky= yes
+feature.lease/login= 14400
+feature.lease/float= 1209600
+feature.lease/audit= 2419200
+feature.lease/lease= 1209600
+feature.lease/node= permanent
+feature.lease/port= 1209600
+feature.lease/usage= 604800
+feature.lease/wlogin= 14400
+feature.lease/wfloat= 14400
+feature.lease/waudit= 2419200
+feature.lease/wlease= 14400
+feature.support/grace= 2419200
+feature.shadow= no
+feature.tiered= yes
+feature.exportable= yes
+remark.license= Single Vendor
+digest.md4= 323EF3A7448EB0303DE29A848960B2ED
+digest.sign=<
+      6240839353740248340061470332246069804344348485658556047389239261
+      685313231337,740951208940391199361893003931665427321993404273312
+      0578877098490566036922358>
+[end]
+

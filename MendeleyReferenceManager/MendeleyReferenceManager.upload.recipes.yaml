@@ -1,0 +1,12 @@
+Description: Downloads the latest version of VLC and makes a pkg. Then, uploads to the Jamf Pro Server.
+Identifier: com.github.bishopja-ninds.upload.MendeleyReferenceManager
+MinimumVersion: "2.3"
+ParentRecipe: com.github.bishopja-ninds.sign.MendeleyReferenceManager
+
+Input:
+  CATEGORY: Productivity
+
+Process:
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+    Arguments:
+      pkg_category: "%CATEGORY%"

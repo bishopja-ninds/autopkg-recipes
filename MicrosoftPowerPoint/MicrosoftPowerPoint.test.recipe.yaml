@@ -1,0 +1,42 @@
+Description: Uploads to the jss
+Identifier: com.github.bishopja-ninds.test.MicrosoftPowerPoint
+ParentRecipe: com.github.bishopja-ninds.upload.MicrosoftPowerPoint
+
+Input:
+  GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
+  GROUP_NAME: "TestUpdateMicrosoftPowerPoint"
+  DEFER_POLICY_TEMPLATE: "Policy-test-deferral-template.xml"
+  DEFER_POLICY_NAME: "Test Update MicrosoftPowerPoint"
+  INSTALL_POLICY_TEMPLATE: "Policy-test-install-template.xml"
+  INSTALL_POLICY_NAME: "Update %SIMPLE_NAME%"
+  TESTING_GROUP_NAME: "TestGroup"
+  SITE_ID: "1"
+  SITE_NAME: "NINDS DIR"
+  SIMPLE_NAME: "Microsoft PowerPoint"
+  APP_NAME: "Microsoft PowerPoint.app"
+  PROCESS_NAME: "Microsoft\ PowerPoint"
+  TRIGGER: "update-microsoftpowerpoint"
+  UPDATE_PREDICATE: "pkg_uploaded == False"
+  DISABLE_CODE_SIGNATURE_VERIFICATION: 1
+
+Process:
+  - Processor: com.github.grahampugh.recipes.commonprocessors/VersionRegexGenerator
+
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
+    Arguments:
+      computergroup_template: "%GROUP_TEMPLATE%"
+      computergroup_name: "%GROUP_NAME%"
+      SITE_ID: "%SITE_ID%"
+      SITE_NAME: "%SITE_NAME%"
+      APP_NAME: "%APP_NAME%"
+      replace_group: 'True'
+
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
+    Arguments:
+      policy_template: "%DEFER_POLICY_TEMPLATE%"
+      policy_name: "%DEFER_POLICY_NAME%"
+
+  - Processor: com.github.grahampugh.jamf.upload.processors/JamfPolicyUploader
+    Arguments:
+      policy_template: "%INSTALL_POLICY_TEMPLATE%"
+      policy_name: "%INSTALL_POLICY_NAME%"  
