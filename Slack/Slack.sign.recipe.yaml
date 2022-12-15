@@ -5,9 +5,15 @@ ParentRecipe: com.github.killahquam.pkg.slack
 
 Input:
   SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
+  CATEGORY: Utilities
 
 Process:
   - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
     Arguments:
       pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
       signing_cert: "%SIGNINGCERTIFICATE%"
+
+Process:
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+    Arguments:
+      pkg_category: "%CATEGORY%"
