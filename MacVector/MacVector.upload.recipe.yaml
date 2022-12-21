@@ -1,0 +1,83 @@
+Description: Download, package, sign and upload MacVector
+Identifier: com.github.bishopja-ninds.upload.macvector
+
+Input:
+  NAME: MacVector
+  VERSION: "18.2.5"
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
+  CATEGORY: Utilities
+
+Process:
+  - Processor: URLDownloader
+    Arguments:
+      url: "https://macvector.net/MacVector18.2.5(43).dmg"
+
+  - Processor: AppDmgVersioner
+    Arguments:
+      dmg_path: "%pathname%"
+
+  - Processor: EndOfCheckPhase
+
+  - Processor: PkgRootCreator
+    Arguments:
+      pkgdirs:
+        Applications: '775'
+      pkgroot: "%RECIPE_CACHE_DIR%/pkgroot"
+  
+  - Processor: PkgRootCreator
+    Arguments:
+      pkgdirs: {}
+      pkgroot: "%RECIPE_CACHE_DIR%/Scripts"
+
+  - Processor: Copier
+    Arguments:
+      source_path: "%pathname%/MacVector"
+      destination_path: "%pkgroot%/Applications/MacVector"
+  
+  - Processor: FileCreator
+    Arguments:
+      file_content: |
+        #!/bin/bash
+        FILE="/Library/Application Support/MacVector/MacVector Licenses"
+        DIR="/Library/Application Support/MacVector"
+        LICENSE="<?xml version="1.0" encoding="UTF-8"?>
+        <MacVector version="1.0">
+        <License SerialNumber="2113204">
+        <LicenseOwner>Yang Fann</LicenseOwner>
+        <LicenseData>3177842556112684078</LicenseData>
+        <MachineData>3204699739653541570</MachineData>
+        </License>
+        </MacVector>"
+        mkdir ${FILE}
+        chmod 755 ${DIR}
+        echo ${LICENSE} > ${FILE} 
+        chmod 644 ${FILE}
+        chown -R root:admin ${DIR}
+      file_mode: "0755"
+      file_path: "%RECIPE_CACHE_DIR%/Scripts/postinstall"
+    
+  - Processor: PkgCreator
+    Arguments:
+      force_pkg_build: true
+      pkg_request:
+        id: com.macvector.%VERSION%
+        options: purge_ds_store
+        pkgname: "%NAME%-%VERSION%"
+        pkgroot: pkgroot
+        scripts: Scripts
+
+  - Processor: PathDeleter
+    Arguments:
+      path_list:
+        - "%RECIPE_CACHE_DIR%/pkgroot"
+        - "%RECIPE_CACHE_DIR%/Scripts"
+
+
+  - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%VERSION%.pkg"
+      signing_cert: "%SIGNINGCERTIFICATE%"
+  
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+    Arguments:
+      pkg_category: "%CATEGORY%"
