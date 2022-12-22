@@ -1,0 +1,64 @@
+Description: Package, sign and upload EndNote 20
+Identifier: com.github.bishopja-ninds.upload.endnote20
+ParentRecipe: com.github.rtrouton.pkg.EndNote20
+
+Input:
+  NAME: EndNote
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
+  CATEGORY: Utilities
+
+Process:
+  - Processor: Copier
+    Arguments:
+      source_path: "%pathname%/Install EndNote 20.app/Contents/Resources/EndNote.zip"
+      destination_path: "%RECIPE_CACHE_DIR%/EndNote.zip"
+      purge_destination: true
+
+  - Processor: Unarchiver
+    Arguments:
+      archive_path: "%RECIPE_CACHE_DIR%/EndNote.zip"
+      destination_path: "%RECIPE_CACHE_DIR%/unarchive"
+      purge_destination: true
+
+  - Processor: Versioner
+    Arguments:
+      input_plist_path: "%RECIPE_CACHE_DIR%/unarchive/EndNote/EndNote 20.app/Contents/Info.plist"
+      plist_version_key: "CFBundleShortVersionString"
+
+  - Processor: Copier
+    Arguments:
+      source_path: "%RECIPE_CACHE_DIR%/unarchive/EndNote/Cite While You Write/EndNote CWYW Word 16.bundle"
+      destination_path: "%RECIPE_CACHE_DIR%/pkgroot/Library/Application Support/Microsoft/Office365/User Content/Startup/Word"
+
+  - Processor: PkgCreator
+    Arguments:
+      pkg_request:
+        id: com.endnote.EndNote20.pkg
+        pkgname: EndNote-%version%
+        pkgroot: "%RECIPE_CACHE_DIR%/pkgroot"
+        pkgtype: flat
+        version: "%version%"
+        chown:
+        - path: Applications
+          user: root
+          group: admin
+        - path: Library
+          user: root
+          group: admin
+          mod: '0755'
+     
+  - Processor: PathDeleter
+    Arguments:
+      path_list:
+        - "%RECIPE_CACHE_DIR%/pkgroot"
+        - "%RECIPE_CACHE_DIR%/unarchive"
+
+
+  - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+      signing_cert: "%SIGNINGCERTIFICATE%"
+  
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+    Arguments:
+      pkg_category: "%CATEGORY%"
