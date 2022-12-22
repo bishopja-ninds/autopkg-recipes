@@ -2,7 +2,7 @@ Description: Download, package, sign and upload MacVector
 Identifier: com.github.bishopja-ninds.upload.macvector
 
 Input:
-  NAME: MacVector
+  NAME: EndNote 20
   VERSION: "18.2.5"
   SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
   CATEGORY: Utilities
@@ -60,7 +60,7 @@ Process:
     Arguments:
       force_pkg_build: true
       pkg_request:
-        id: com.macvector.%VERSION%
+        id: com.macvector.macvector-%VERSION%
         options: purge_ds_store
         pkgname: "%NAME%-%VERSION%"
         pkgroot: pkgroot
