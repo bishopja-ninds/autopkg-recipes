@@ -1,6 +1,6 @@
 Description: Package, sign and upload EndNote 20
 Identifier: com.github.bishopja-ninds.upload.endnote20
-ParentRecipe: com.github.rtrouton.pkg.EndNote20
+ParentRecipe: com.github.rtrouton.download.EndNote20
 
 Input:
   NAME: EndNote
@@ -28,7 +28,22 @@ Process:
   - Processor: Copier
     Arguments:
       source_path: "%RECIPE_CACHE_DIR%/unarchive/EndNote/Cite While You Write/EndNote CWYW Word 16.bundle"
-      destination_path: "%RECIPE_CACHE_DIR%/pkgroot/Library/Application Support/Microsoft/Office365/User Content/Startup/Word"
+      destination_path: "%RECIPE_CACHE_DIR%/pkgroot/Library/Application Support/Microsoft/Office365/User Content/Startup/Word/EndNote CWYW Word 16.bundle"
+
+  - Processor: Copier
+    Arguments:
+      source_path: "%RECIPE_CACHE_DIR%/unarchive/EndNote"
+      destination_path: "%RECIPE_CACHE_DIR%/pkgroot/Applications/EndNote"
+
+  - Processor: FileCreator
+    Arguments:
+      file_content: |
+        Registered User
+        NIH
+        3092075092
+        V2ZM8TL556P8WCRWTMTQ6YSMXXJCCRYQ5MCENAX9479CSWFCT6894BX98CWMMH5C3AVL8TYQUM3RR9YX3RHMAENAX9479CSWFCT6894BJ98CWMMH5C6AVL8TYQUMCRR9YX3RHMGENAX9479C6WFCT6894BJ98CWMMH5CBAVL8TYQUMLRR9YX3RH9MENAX9479PJWFCT6894MV98CWMMH5MUAVL8TYQUMSRR9YX3RHMMENAX9479P6WFCT6894BG98CWMMH5
+      file_mode: "0744"
+      file_path: "%RECIPE_CACHE_DIR%/pkgroot/Applications/EndNote/.license.dat"
 
   - Processor: PkgCreator
     Arguments:
@@ -45,7 +60,7 @@ Process:
         - path: Library
           user: root
           group: admin
-          mod: '0755'
+          mode: '0755'
      
   - Processor: PathDeleter
     Arguments:
@@ -58,7 +73,7 @@ Process:
     Arguments:
       pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
       signing_cert: "%SIGNINGCERTIFICATE%"
-  
+ 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
     Arguments:
       pkg_category: "%CATEGORY%"
