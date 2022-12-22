@@ -1,0 +1,84 @@
+Description: Download, build and upload Fireeye Client for meetings
+Identifier: com.github.bishopja-ninds.download.fireeye
+
+Input:
+  NAME: FireEye
+  VERSION: "35.31.0"
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
+
+
+Process:
+  - Processor: URLDownloader
+    Arguments:
+      url: "https://irt-fs001.ocio.nih.gov/fireeye/IMAGE_HX_AGENT_OSX_%VERSION%.dmg"
+
+  - Processor: EndOfCheckPhase
+
+  - Processor: PkgRootCreator
+    Arguments:
+      pkgdirs:
+        private: '0755'
+        private/tmp: '0755'
+        private/tmp/fireeye: '0755'
+      pkgroot: "%RECIPE_CACHE_DIR%/pkgroot"
+  
+  - Processor: PkgRootCreator
+    Arguments:
+      pkgdirs: {}
+      pkgroot: "%RECIPE_CACHE_DIR%/Scripts"
+  
+
+  - Processor: Copier
+    Arguments:
+      source_path: "%pathname%/xagtSetup_%VERSION%.pkg"
+      destination_path: "%RECIPE_CACHE_DIR%/pkgroot/private/tmp/fireeye/xagtSetup_%VERSION%.pkg"
+
+  - Processor: Copier
+    Arguments: 
+      source_path: "%pathname%/agent_config.json"
+      destination_path: "%RECIPE_CACHE_DIR%/pkgroot/private/tmp/fireeye/agent_config.json"
+  
+  - Processor: FileCreator
+    Arguments:
+      file_content: |
+        #!/bin/bash
+        VERSION="35.31.0"
+        /Library/FireEye/xagt/uninstall.tool
+        if [[ -e /Library/FireEye/xagt ]]; then
+ 
+         find /private/var -iname "*fireeye*" -exec rm -rf {} \;
+         find /Libary/LaunchDaemons -iname "*fireeye*" -exec rm -rf {} \;
+         find /Libary/LaunchAgents -iname "*fireeye*" -exec rm -rf {} \;
+         rm -rf /Library/FireEye
+        fi
+
+        /usr/sbin/installer -pkg /private/tmp/fireeye/xagtSetup_${VERSION}.pkg -target /
+
+        rm -rf /private/tmp/fireeye
+      file_mode: "0755"
+      file_path: "%RECIPE_CACHE_DIR%/Scripts/postinstall"
+
+  - Processor: PkgCreator
+    Arguments:
+      pkg_request:
+        id: com.fireeye.fireeye-%VERSION%
+        options: purge_ds_store
+        pkgname: "%NAME%-%VERSION%"
+        version: "%VERSION%"
+        pkgroot: pkgroot
+        scripts: Scripts
+
+  - Processor: PathDeleter
+    Arguments:
+      path_list:
+        - "%RECIPE_CACHE_DIR%/pkgroot"
+        - "%RECIPE_CACHE_DIR%/Scripts"
+
+  - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%VERSION%.pkg"
+      signing_cert: "%SIGNINGCERTIFICATE%"
+
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+    Arguments:
+      pkg_category: "%CATEGORY%"
