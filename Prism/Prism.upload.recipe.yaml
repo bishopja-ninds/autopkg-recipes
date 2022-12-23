@@ -1,10 +1,10 @@
 Description: Download, package, sign and upload Prism
 Identifier: com.github.bishopja-ninds.upload.prism
 
-INPUT:
+Input:
   NAME: Prism
-  MAJOR_VERSION: 9
-  FILE_NAME: "Prism %MAJOR_VERSION%"
+  MAJOR_VERSION: "9"
+  APP_NAME: "Prism %MAJOR_VERSION%"
   DOWNLOAD_BASE_URL: "https://cdn.graphpad.com/downloads/prism"
 
 Process:
@@ -13,28 +13,35 @@ Process:
     url: "%DOWNLOAD_BASE_URL%/%MAJOR_VERSION%/InstallPrism%MAJOR_VERSION%.dmg"
     filename: "%NAME%.dmg"
 
-- Processor: EndCheckPhase
 
 - Processor: Versioner
   Arguments:
-    input_plist_path: "%pathname%/%APP_FILENAME%.app/Contents/Info.plist"
+    input_plist_path: "%pathname%/%APP_NAME%.app/Contents/Info.plist"
     plist_version_key: CFBundleShortVersionString
 
 - Processor: PkgRootCreator
   Arguments:
     pkgdirs:
       Applications: '0755'
-      pkgroot: "%RECIPE_CACHE_DIR%/pkgroot"
-      scripts: "%RECIPE_CACHE_DIR%/Scripts"
+    pkgroot: "%RECIPE_CACHE_DIR%/pkgroot"
+
+- Processor: PkgRootCreator
+  Arguments:
+    pkgdirs: {}
+    pkgroot: "%RECIPE_CACHE_DIR%/Scripts"
 
 - Processor: Copier
   Arguments:
-    source_path: "%pkgroot%/Applications/%APP_NAME%.app"
-    destination_path: "%pathname%/%APP_NAME%.app"
+    source_path: "%pathname%/%APP_NAME%.app"
+    destination_path: "%pkgroot%/Applications/%APP_NAME%.app"
 
 - Processor: FileCreator
   Arguments:
     file_content: |
+      #!/bin/bash
+
+      ##Add find for all prisms and remove them
+
       find /Applications -name "Prism [5,6,7,8]*" -maxdepth 1 -exec rm -rf {} \;
       find /Applications -name "Prism.app" -maxdepth 1 -exec rm -rf {} \;
       find /Library -name prism-license* -exec rm -rf {}\;
@@ -56,21 +63,22 @@ Process:
 
 - Processor: FileCreator
   Arguments: 
-  file_content: |
-    <?xml version="1.0" encoding="UTF-8"?>
-    <configuration>
-    <silent-activation>true</silent-activation>
-    <serial-number>GPS-1154044-LLP5-83FD5</serial-number>
-    <check-for-updates>false</check-for-updates>
-    <email-collection>disable</email-collection>
-    </configuration>
-  file_mode: "0744"
-  file_path: "%RECIPE_CACHE_DIR%/pkgroot/Applications/prism-config.xml"
+    file_content: |
+      <?xml version="1.0" encoding="UTF-8"?>
+      <configuration>
+      <silent-activation>true</silent-activation>
+      <serial-number>GPS-1154044-LLP5-83FD5</serial-number>
+      <check-for-updates>false</check-for-updates>
+      <email-collection>disable</email-collection>
+      </configuration>
+    file_mode: "0744"
+    file_path: "%RECIPE_CACHE_DIR%/pkgroot/Applications/prism-config.xml"
 
 
 - Processor: PkgCreator
   Arguments:
-    pkgrequest:
+    pkg_request:
+      id: com.graphpad.prism-%version%
       pkgname: "%NAME%-%version%"
       pkgroot: "%pkgroot%"
       options: purge_ds_store
@@ -80,3 +88,12 @@ Process:
       - path: Applications
         user: root
         group: admin
+
+- Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+  Arguments:
+    pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+    signing_cert: "%SIGNINGCERTIFICATE%"
+
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+  Arguments:
+    pkg_category: "%CATEGORY%"
