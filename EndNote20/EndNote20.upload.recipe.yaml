@@ -62,13 +62,6 @@ Process:
           group: admin
           mode: '0755'
      
-  - Processor: PathDeleter
-    Arguments:
-      path_list:
-        - "%RECIPE_CACHE_DIR%/pkgroot"
-        - "%RECIPE_CACHE_DIR%/unarchive"
-
-
   - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
     Arguments:
       pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
@@ -77,3 +70,12 @@ Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
     Arguments:
       pkg_category: "%CATEGORY%"
+  
+  - Processor: PathDeleter
+    Arguments:
+      path_list:
+        - "%RECIPE_CACHE_DIR%/pkgroot"
+        - "%RECIPE_CACHE_DIR%/unarchive"
+        - "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+        - "%RECIPE_CACHE_DIR%/%NAME%-%version%-unsigned.pkg"
+        - "%RECIPE_CACHE_DIR%/EndNote.zip"
