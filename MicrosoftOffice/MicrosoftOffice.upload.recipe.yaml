@@ -1,12 +1,18 @@
 Description: Downloads the latest version of Microsoft Office Pro Business suite and makes a pkg. Then, uploads to the Jamf Pro Server.
-Identifier: com.github.bishopja-ninds.recipes.upload.MicrosoftOfficed
+Identifier: com.github.bishopja-ninds.recipes.upload.MicrosoftOffice
 MinimumVersion: "2.3"
-ParentRecipe: com.github.bishopja-ninds.sign.MicrosoftOffice
+ParentRecipe: com.github.rtrouton.pkg.MicrosoftOffice365BusinessProSuite
 
 Input:
-  CATEGORY: Utilities
+  CATEGORY: Productivity 
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
 
 Process:
+  - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/%VENDOR%_%SOFTWARETITLE1%_%SOFTWARETITLE2%_%SOFTWARETITLE3%_%SOFTWARETITLE4%_%version%.pkg"
+      signing_cert: "%SIGNINGCERTIFICATE%"
+
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
     Arguments:
       pkg_category: "%CATEGORY%"
