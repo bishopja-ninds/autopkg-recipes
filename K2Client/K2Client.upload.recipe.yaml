@@ -1,0 +1,3 @@
+Description: Signs the already downloaded and created Googe Chrome package.
+Identifier: com.github.bishopja-ninds.upload.k2client
+ParentRecipe: com.github.rtrouton.pkg.googlechrome
