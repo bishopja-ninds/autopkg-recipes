@@ -4,7 +4,7 @@ MinimumVersion: "2.3"
 ParentRecipe: com.github.rtrouton.pkg.microsoftword365
 
 Input:
-  CATEGORY: Utilities
+  CATEGORY: Productivity
 
 Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
