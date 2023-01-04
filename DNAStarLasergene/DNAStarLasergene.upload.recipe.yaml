@@ -1,0 +1,70 @@
+Description:  Signs the Zoom file with the NINDS certificate
+Identifier: com.github.bishopja-ninds.upload.dnastarlasergene
+
+Input:
+  VENDOR: "DNASTAR"
+  PRODUCT: "Lasergene"
+  VERSION: "1741"
+  DOWNLOADS: "/Users/bishopja/Downloads/"
+  IMAGE: "%VENDOR%%PRODUCT%%VERSION%MacInstaller.dmg"
+  CATEGORY: "Statistics Software"
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
+  
+Process:
+- Processor: AppDmgVersioner
+  Arguments:
+    dmg_path: "%DOWNLOADS%%IMAGE%"
+    app_name: "DNASTAR\ Lasergene\ Installer.app"
+
+- Processor: PkgRootCreator
+  Arguments:
+    pkgdirs:
+      tmp: '775'
+    pkgroot: "%RECIPE_CACHE_DIR%/pkgroot"
+
+- Processor: PkgRootCreator
+  Arguments:
+    pkgdirs: {}
+    pkgroot: "%RECIPE_CACHE_DIR%/Scripts"
+
+- Processor: Copier
+  Arguments:
+    source_path: "%DOWNLOADS%%IMAGE%"
+    destination_path: "%RECIPE_CACHE_DIR%/pkgroot/tmp/DNASTARLasergene.dmg"
+
+- Processor: FileCreator
+  Arguments:
+    file_content: |
+      #!/bin/bash
+      INSTALL_DIR="/tmp"
+      image="${INSTALL_DIR}/DNASTARLasergene.dmg"
+      hdiutil attach ${image}
+      /Volumes/DNASTAR\ Lasergene\ 17/DNASTAR\ Lasergene\ Installer.app/Contents/MacOS/installbuilder.sh --mode unattended
+      hdiutil detach /Volumes/DNASTAR\ Lasergene\ 17
+    file_mode: "0755"
+    file_path: "%RECIPE_CACHE_DIR%/Scripts/postinstall"
+
+- Processor: PkgCreator
+  Arguments:
+    force_pkg_build: true
+    pkg_request:
+      id: com.dnastar.lasergene%version%
+      options: purge_ds_store
+      pkgname: "%VENDOR%%PRODUCT%-%version%"
+      pkgroot: pkgroot
+      scripts: Scripts
+
+- Processor: PathDeleter
+  Arguments:
+    path_list:
+     - "%RECIPE_CACHE_DIR%/pkgroot"
+     - "%RECIPE_CACHE_DIR%/Scripts"
+
+- Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+  Arguments:
+    pkg_path: "%pkg_path%"
+    signing_cert: "%SIGNINGCERTIFICATE%"
+
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
+  Arguments:
+    pkg_category: "%CATEGORY%"
