@@ -40,7 +40,7 @@ Process:
       INSTALL_DIR="/tmp"
       image="${INSTALL_DIR}/lasergene/DNASTARLasergene.dmg"
       hdiutil attach ${image}
-      /Volumes/DNASTAR\ Lasergene\ 17/DNASTAR\ Lasergene\ Installer.app/Contents/MacOS/installbuilder.sh --mode unattended
+      /Volumes/DNASTAR\ Lasergene\ 17/DNASTAR\ Lasergene\ Installer.app/Contents/MacOS/installbuilder.sh --mode unattended --dnastarServerIP 165.112.112.210
       hdiutil detach /Volumes/DNASTAR\ Lasergene\ 17
       rm -rf /private/tmp/lasergene
     file_mode: "0755"
