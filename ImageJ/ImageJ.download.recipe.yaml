@@ -1,0 +1,79 @@
+Descrpition: Download recipe for ImageJ, which downloads a zip file containing the latest stable version of ImageJ for Mac OS X. ImageJ is an image processing package which display, edit, analyze, process, save and print 8-bit, 16-bit and 32-bit images.
+Identifier: com.github.bishopja-ninds.download.imagej
+
+Input:
+  NAME: ImageJ
+
+Process:
+- Processor: URLDownloader
+  Arguments:
+    url: http://wsr.imagej.net/jars/ij.jar
+
+- Processor: Unarchiver
+  Arguments:
+    archive_format: zip
+    archive_path: "%RECIPE_CACHE_DIR%/downloads/ij.jar"
+    destination_path: "%RECIPE_CACHE_DIR%/unzip"
+    purge_destination: true
+
+- Processor: URLTextSearcher
+  Arguments:
+    re_pattern: (?<=Version )\d\.\d\d
+    result_output_var_name: version
+    url: file:////%RECIPE_CACHE_DIR%/unzip/IJ_Props.txt
+
+- Processor: URLTextSearcher
+  Arguments:
+    re_pattern: https:\/\/wsr\.imagej\.net\/distros\/osx\/ij.*-osx-java8\.zip
+    result_output_var_name: match
+    url: https://imagej.nih.gov/ij/download.html
+
+- Processor: URLDownloader
+  Arguments:
+    url: "%match%"
+    filename: "%NAME%-%version%.zip"
+
+- Processor: EndOfCheckPhase
+
+- Processor: PkgRootCreator
+  Arguments:
+    pkgroot: "%RECIPE_CACHE_DIR%/%NAME%"
+    pkgdirs:
+      Applications: '0775'
+
+- Processor: Unarchiver
+  Arguments:
+    archive_path: "%pathname%"
+    destination_path: "%pkgroot%/Applications"
+    purge_destination: true
+
+- Processor: Copier
+  Arguments:
+    source_path: "%RECIPE_CACHE_DIR%/downloads/ij.jar"
+    destination_path: "%pkgroot%/Applications/ImageJ.app/Contents/Java/ij.jar"
+    overwrite: true
+
+- Processor: PlistEditor
+  Arguments:
+    input_plist_path: "%pkgroot%/Applications/ImageJ.app/Contents/Info.plist"
+    output_plist_path: "%pkgroot%/Applications/ImageJ.app/Contents/Info.plist"
+    plist_data:
+      CFBundleShortVersionString: "%version%"
+
+- Processor: PkgCreator
+  Arguments: 
+    pkg_request:
+      pkgname: "%NAME%-%version%"
+      version: "%version%"
+      id: gov.nih.rsbweb.ImageJ
+      options: purge_ds_store
+      chown:
+        - path: Applications
+          user: root
+          group: admin
+
+- Processor: PathDeleter
+  Arguments: 
+    path_list:
+    - "%RECIPE_CACHE_DIR%/unzip"
+    - "%RECIPE_CACHE_DIR%/%NAME%"

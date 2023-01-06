@@ -1,6 +1,6 @@
 Descrpition: Recipe to sign and upload ImageJ
 Identifier: com.github.bishopja-ninds.upload.imagej
-ParentRecipe: com.github.rtrouton.pkg.ImageJ
+ParentRecipe: com.github.bishopja-ninds.download.imagej
 
 Input:
   CATEGORY: "Statistics Software"
