@@ -1,0 +1,17 @@
+Descrpition: Recipe to sign and upload Fiji
+Identifier: com.github.bishopja-ninds.upload.fiji
+ParentRecipe: com.github.rtrouton.pkg.Fiji
+
+Input:
+  CATEGORY: "Statistics Software"
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
+
+Process:
+  - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+      signing_cert: "%SIGNINGCERTIFICATE%"
+
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+    Arguments:
+      pkg_category: "%CATEGORY%"
