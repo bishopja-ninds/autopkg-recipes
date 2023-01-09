@@ -1,0 +1,18 @@
+Description:  Signs Oracle Virtualbox installer with the NINDS certificate
+Identifier: com.github.bishopja-ninds.upload.oraclevirtualbox
+ParentRecipe: com.github.homebysix.pkg.VirtualBox
+
+Input:
+  CATEGORY: Utilities
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
+
+Process:
+- Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+  Arguments:
+    pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+    signing_cert: "%SIGNINGCERTIFICATE%"
+
+
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+  Arguments:
+    pkg_category: "%CATEGORY%"
