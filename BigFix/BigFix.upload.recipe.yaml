@@ -1,0 +1,71 @@
+Description:  Signs the Cylance file with the NINDS certificate
+Identifier: com.github.bishopja-ninds.upload.bigfix
+ParentRecipe: com.github.hansen-m.download.BigFixAgent
+
+Input:
+  VENDOR: "IBM"
+  CATEGORY: "SecurityAgents"
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
+
+Process:
+- Processor: PkgRootCreator
+  Arguments:
+    pkgdirs:
+      tmp: '775'
+      tmp/bigfix: '775'
+    pkgroot: "%RECIPE_CACHE_DIR%/pkgroot"
+
+- Processor: PkgRootCreator
+  Arguments:
+    pkgdirs: {}
+    pkgroot: "%RECIPE_CACHE_DIR%/Scripts"
+
+- Processor: Copier
+  Arguments:
+    source_path: "%pathname%"
+    destination_path: "%RECIPE_CACHE_DIR%/pkgroot/tmp/bigfix"
+  
+- Processor: Copier
+  Arguments:
+    source_path: "%RECIPE_DIR%/actionsite.afxm"
+    destination_path: "%RECIPE_CACHE_DIR%/pkgroot/tmp/bigfix"
+
+- Processor: Copier
+  Arguments:
+    source_path: "%RECIPE_DIR%/clientsettings.cfg"
+    destination_path: "%RECIPE_CACHE_DIR%/pkgroot/tmp/bigfix/"
+
+- Processor: FileCreator
+  Arguments:
+    file_content: |
+      #!/bin/bash
+      /usr/sbin/installer -pkg /private/tmp/bigfix/%filename% -target /
+      rm -rf /private/tmp/bigfix
+    file_mode: "0755"
+    file_path: "%RECIPE_CACHE_DIR%/Scripts/postinstall"
+
+- Processor: PkgCreator
+  Arguments:
+    version: "%version%"
+    force_pkg_build: true
+    pkg_request:
+      id: com.%NAME%.%version%
+      options: purge_ds_store
+      pkgname: "%NAME%-%version%"
+      pkgroot: pkgroot
+      scripts: Scripts
+
+- Processor: PathDeleter
+  Arguments:
+    path_list:
+     - "%RECIPE_CACHE_DIR%/pkgroot"
+     - "%RECIPE_CACHE_DIR%/Scripts"
+
+- Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+  Arguments:
+    pkg_path: "%pkg_path%"
+    signing_cert: "%SIGNINGCERTIFICATE%"
+
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
+  Arguments:
+    pkg_category: "%CATEGORY%"
