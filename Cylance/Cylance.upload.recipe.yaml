@@ -3,7 +3,6 @@ Identifier: com.github.bishopja-ninds.upload.cylance
 
 Input:
   VENDOR: "Cylance"
-  PRODUCT: "Lasergene"
   VERSION: "3.1.1000"
   DOWNLOADS: "/Users/bishopja/Downloads/"
   PKG: "%DOWNLOADS%CylancePROTECT.pkg"
@@ -31,9 +30,11 @@ Process:
 - Processor: FileCreator
   Arguments:
     file_content: |
-      #!/bin/bash
-      /usr/sbin/installer -pkg /private/tmp/cylance/CylancePROTECT.pkg -target /
-      rm -rf /private/tmp/cylance
+      oZS0HOKejU7KICGERk6m0h6UG
+      NoCylanceUI
+      SelfProtectionLevel=2
+      VenueZone=NINDS_Pre
+      LogLevel=2
     file_mode: "0755"
     file_path: "%RECIPE_CACHE_DIR%/pkgroot/tmp/cylance/cyagent_install_token"
 
