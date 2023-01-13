@@ -1,6 +1,12 @@
 Description: Unpacks and rebulids the No Machine installer to include the version number
-Identifier: com.github.bishopja-ninds.download.parallelsautodeploy
+Identifier: com.github.bishopja-ninds.download.ParallelsAutoDeploy
 
+Input:
+  NAME: "ParallelsDesktop"
+  MAJOR_VERSION: "18"
+  SERIAL: "6J9CSE-NM4STY-XQQ6BW-GRQX9H-VJA77G"
+  SIGNINGCERTIFICATE: "3rd Party Mac Developer Installer: The National Institute of Neurological Disorders and Stroke (UBAH757F69)"
+  CATEGORY: "Utilities"
 
 Process:
 - Processor: URLDownloader
@@ -8,8 +14,106 @@ Process:
     url: "https://download.parallels.com/desktop/tools/pd-autodeploy.zip"
     filename: "pd-autodeploy.zip"
   
+- Processor: Versioner
+  Arguments:
+    input_plist_path: "%RECIPE_CACHE_DIR%/downloads/pd-autodeploy.zip/Parallels Desktop Autodeploy.pkg/Contents/Info.plist"
+    plist_version_key: "CFBundleShortVersionString"
+    skip_single_root_dir: true
+
 - Processor: Unarchiver
   Arguments:
     archive_path: "%RECIPE_CACHE_DIR%/downloads/pd-autodeploy.zip"
     destination_path: "%RECIPE_CACHE_DIR%/unarchive/"
     purge_destination: true
+
+- Processor: PathDeleter
+  Arguments:
+    path_list:
+    - "%RECIPE_CACHE_DIR%/unarchive/Parallels Desktop Business Edition mass deployment package v%version%/Parallels Desktop Autodeploy.pkg/License Key and Configuration/deploy.cfg"
+
+- Processor: URLDownloader
+  Arguments:
+    url: "https://www.parallels.com/directdownload/pd%MAJOR_VERSION%/image"
+    filename: "%NAME%-%MAJOR_VERSION%.dmg"
+
+- Processor: Versioner
+  Arguments:
+    input_plist_path: "%pathname%/Install.app/Contents/Info.plist"
+    plist_version_key: CFBundleShortVersionString
+
+- Processor: Copier
+  Arguments:
+    source_path: "%pathname%"
+    destination_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.dmg" 
+
+- Processor: PkgRootCreator
+  Arguments:
+    pkgdirs:
+      tmp: '775'
+      tmp/parallels: '775'
+    pkgroot: "%RECIPE_CACHE_DIR%/pkgroot"
+
+- Processor: PkgRootCreator
+  Arguments:
+    pkgdirs: {}
+    pkgroot: "%RECIPE_CACHE_DIR%/Scripts"
+
+- Processor: Copier
+  Arguments:
+    source_path: "%RECIPE_CACHE_DIR%/unarchive/Parallels Desktop Business Edition mass deployment package v*/Parallels Desktop Autodeploy.pkg"
+    destination_path: "%RECIPE_CACHE_DIR%/pkgroot/tmp/parallels/Parallels Desktop Autodeploy.pkg"
+
+- Processor: Copier
+  Arguments:
+    source_path: "%RECIPE_CACHE_DIR%/downloads/%NAME%-%MAJOR_VERSION%.dmg"
+    destination_path: "%RECIPE_CACHE_DIR%/pkgroot/tmp/parallels/Parallels Desktop Autodeploy.pkg/Parallels Desktop DMG/"
+
+    
+- Processor: FileCreator
+  Arguments:
+    file_content: |
+      license_key="%SERIAL%"
+      vm_register_mode="Private"
+      vm_reset_hwid="no"
+      vm_deploy_mode="Copy"
+      vm_set_hv_mode_apple_forcibly_since_macos_11_0="yes"
+      cep_participation="off"
+      show_developers_menu="no"
+    file_mode: '660'
+    file_path: "%RECIPE_CACHE_DIR%/pkgroot/tmp/parallels/Parallels Desktop Autodeploy.pkg/License Key and Configuration/deploy.cfg"
+  
+- Processor: FileCreator
+  Arguments: 
+    file_content: |
+      #!/bin/bash
+      launchctl stop com.parallels.desktop.launchdaemon
+      /usr/sbin/installer -pkg "/private/tmp/parallels/Parallels Desktop Autodeploy.pkg" -target /
+      rm -rf /private/tmp/parallels
+    file_mode: '0755'
+    file_path: "%RECIPE_CACHE_DIR%/Scripts/postinstall"
+
+- Processor: PkgCreator
+  Arguments:
+    force_pkg_build: true
+    pkg_request:
+      id: com.parallels.parallelsinstall
+      options: purge_ds_store
+      pkgname: "%NAME%-%version%"
+      pkgroot: pkgroot
+      scripts: Scripts    
+
+- Processor: PathDeleter
+  Arguments:
+    path_list:
+      - "%RECIPE_CACHE_DIR%/pkgroot"
+      - "%RECIPE_CACHE_DIR%/Scripts"
+      - "%RECIPE_CACHE_DIR%/downloads"
+
+- Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+  Arguments:
+    pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+    signing_cert: "%SIGNINGCERTIFICATE%"
+
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+  Arguments:
+    pkg_category: "%CATEGORY%"
