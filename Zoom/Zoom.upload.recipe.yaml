@@ -3,7 +3,7 @@ Identifier: com.github.bishopja-ninds.upload.zoom
 ParentRecipe: com.github.bishopja-ninds.sign.zoom
 
 Input:
-  CATEGORY: Browsers
+  CATEGORY: Utilities
 
 Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
