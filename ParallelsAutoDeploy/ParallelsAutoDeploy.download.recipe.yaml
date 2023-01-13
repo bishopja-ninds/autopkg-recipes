@@ -1,0 +1,15 @@
+Description: Unpacks and rebulids the No Machine installer to include the version number
+Identifier: com.github.bishopja-ninds.download.parallelsautodeploy
+
+
+Process:
+- Processor: URLDownloader
+  Arguments:
+    url: "https://download.parallels.com/desktop/tools/pd-autodeploy.zip"
+    filename: "pd-autodeploy.zip"
+  
+- Processor: Unarchiver
+  Arguments:
+    archive_path: "%RECIPE_CACHE_DIR%/downloads/pd-autodeploy.zip"
+    destination_path: "%RECIPE_CACHE_DIR%/unarchive/"
+    purge_destination: true
