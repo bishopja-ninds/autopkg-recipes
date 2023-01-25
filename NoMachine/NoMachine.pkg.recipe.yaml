@@ -33,6 +33,7 @@ Process:
       /etc/NX/nxserver --shutdown
     file_mode: "0755"
     file_path: "%RECIPE_CACHE_DIR%/Scripts/postinstall"
+
 - Processor: PkgCreator
   Arguments:
     force_pkg_build: true

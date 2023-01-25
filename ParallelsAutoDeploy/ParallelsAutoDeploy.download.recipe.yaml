@@ -1,4 +1,4 @@
-Description: Unpacks and rebulids the No Machine installer to include the version number
+Description: Dowloads and packages Parallels with the Autodeploy pkg
 Identifier: com.github.bishopja-ninds.download.ParallelsAutoDeploy
 
 Input:

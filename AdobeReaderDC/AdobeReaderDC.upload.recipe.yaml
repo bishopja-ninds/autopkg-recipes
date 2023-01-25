@@ -1,16 +1,15 @@
 Description: Uploads to the jss
 Identifier: com.github.bishopja-ninds.upload.AdobeReaderDC
-ParentRecipe: com.github.bishopja-ninds.sign.AdobeReaderDC
+ParentRecipe: com.github.novaksam.pkg.AdobeAcrobatReaderDCUpdates
 
 Input:
-  GROUP_TEMPLATE: "SmartGroupUpdate-template.xml"
-  GROUP_NAME: "TestUpdateNoMachine"
-  POLICY_TEMPLATE: "Policy-template.xml"
-  POLICY_NAME: "Test Update NoMachine"
-  TESTING_GROUP_NAME: "TESTGROUP"
-  APP_NAME: "NoMachine.app"
+  APP_NAME: "AdobeReaderDC"
 
 
 Process:
+  - Processor: com.github.rtrouton.SharedProcessors/PkgSigner
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
+      signing_cert: "%SIGNINGCERTIFICATE%"
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader 
