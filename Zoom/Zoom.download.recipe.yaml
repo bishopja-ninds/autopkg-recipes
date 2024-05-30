@@ -7,6 +7,6 @@ Input:
 Process:
   - Processor: URLDownloader
     Arguments:
-      url: "https://zoom.us/client/latest/Zoom.pkg"
+      url: "https://zoom.us/client/latest/ZoomInstallerIT.pkg"
 
   - Processor: EndOfCheckPhase
