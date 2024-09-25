@@ -1,0 +1,16 @@
+Description: Upload the signed package to the jss
+Identifier: com.github.bishopja-ninds.upload.mslldp
+
+Input:
+  CATEGORY: Utilities
+  PATH: "/Users/bishopja/Desktop/"
+  VENDOR: Microsoft
+  NAME: LLPD
+  version: 1.0.17
+  pkg_path: "%PATH%%VENDOR%_%NAME%_%version%.pkg"
+
+
+Process:
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+    Arguments:
+      pkg_category: "%CATEGORY%"
